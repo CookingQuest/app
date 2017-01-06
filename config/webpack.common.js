@@ -114,7 +114,6 @@ module.exports = function (options) {
       ),
 
       new CopyWebpackPlugin([
-        { from: 'src/assets/img', to: 'img' },
         { from: 'src/assets/icon', to: 'icon' },
         { from: 'src/meta'} 
       ]),

@@ -31,18 +31,20 @@ import 'core-js/es7/reflect';
 import 'core-js/es7/object';
 import 'zone.js/dist/zone';
 
+import 'rxjs/add/operator/take';
+
 // Typescript emit helpers polyfill
 import 'ts-helpers';
 
 if ('production' === ENV) {
-  // Production
+    // Production
 
 
 } else {
-  // Development
+    // Development
 
-  Error.stackTraceLimit = Infinity;
+    Error.stackTraceLimit = Infinity;
 
-  require('zone.js/dist/long-stack-trace-zone');
+    require('zone.js/dist/long-stack-trace-zone');
 
 }
