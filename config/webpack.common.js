@@ -5,14 +5,16 @@ const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplaceme
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 const HtmlElementsPlugin = require('./html-elements-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const INITIAL_STATE = require('../src/api/mock_state.ts');
-
+const ngcWebpack = require('ngc-webpack');
 
 const HMR = helpers.hasProcessFlag('hot');
+const AOT = helpers.hasNpmFlag('aot');
 const METADATA = {
   title: 'Angular2 Webpack Starter by @gdi2290 from @AngularClass', 
   isDevServer: helpers.isWebpackDevServer()
@@ -23,9 +25,11 @@ module.exports = function (options) {
   return {
     
     entry: {
-      polyfills: './src/polyfills.browser.ts',
-      vendor:    './src/vendor.browser.ts',
-      main:      './src/main.browser.ts'      
+
+      'polyfills': './src/polyfills.browser.ts',
+      'main':      AOT ? './src/main.browser.aot.ts' :
+        './src/main.browser.ts'
+
     },
 
     resolve: {
@@ -39,9 +43,16 @@ module.exports = function (options) {
           test: /\.ts$/,
           use: [
             '@angularclass/hmr-loader?pretty=' + !isProd + '&prod=' + isProd,
-            'awesome-typescript-loader',
+            'awesome-typescript-loader?{configFileName: "tsconfig.webpack.json"}',
             'angular2-template-loader',
-            'angular-router-loader'
+            {
+              loader: 'ng-router-loader',
+              options: {
+                loader: 'async-system',
+                genDir: 'compiled',
+                aot: AOT
+              }
+            }
           ],
           exclude: [/\.(spec|e2e)\.ts$/]
         },
@@ -49,14 +60,14 @@ module.exports = function (options) {
         {
           test: /\.json$/,
           use: 'json-loader'
-        },
-        
+        }, 
         {
           test: /\.css$/, 
           use: ['to-string-loader',
                 {loader: 'css-loader', query: { importLoaders: 1 }},
                 'resolve-url-loader',
-                'postcss-loader']
+                'postcss-loader'],
+          exclude: [helpers.root('src', 'styles')]
         },
         
         {
@@ -99,7 +110,18 @@ module.exports = function (options) {
         filename: 'webpack-assets.json',
         prettyPrint: true
       }),
-      
+      new CheckerPlugin(), 
+      new CommonsChunkPlugin({
+        name: 'polyfills',
+        chunks: ['polyfills']
+      }),
+      // This enables tree shaking of the vendor modules
+      new CommonsChunkPlugin({
+        name: 'vendor',
+        chunks: ['main'],
+        minChunks: module => /node_modules\//.test(module.resource)
+      }),
+      // Specify the correct order the scripts will be injected in
       new CommonsChunkPlugin({
         name: ['polyfills', 'vendor'].reverse()
       }),
@@ -184,6 +206,13 @@ module.exports = function (options) {
           /facade(\\|\/)math/,
         helpers.root('node_modules/@angular/core/src/facade/math.js')
       ),
+
+      new ngcWebpack.NgcWebpackPlugin({
+        disabled: !AOT,
+        tsConfig: helpers.root('tsconfig.webpack.json'),
+        resourceOverride: helpers.root('config/resource-override.js')
+      })
+
     ],
 
     node: {

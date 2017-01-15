@@ -9,8 +9,8 @@ const commonConfig = require('./webpack.common.js'); // the settings that are co
 /**
  * Webpack Plugins
  */
-const DedupePlugin = require('webpack/lib/optimize/DedupePlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const IgnorePlugin = require('webpack/lib/IgnorePlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin');
@@ -56,19 +56,27 @@ module.exports = function (env) {
       chunkFilename: 'js/[id].[chunkhash].chunk.js' 
     },
 
-    plugins: [
+    module: {
 
+      rules: [
+        /*
+         * Extract CSS files from .src/styles directory to external CSS file
+         */
+        {
+          test: /\.css$/,
+          loader: ExtractTextPlugin.extract({
+            fallbackLoader: 'style-loader',
+            loader: [{loader: 'css-loader', query: { importLoaders: 1 }},
+                     'resolve-url-loader',
+                     'postcss-loader']
+          }),
+          include: [helpers.root('src', 'styles')]
+        },
+      ]
+    },
+    plugins: [
+      new ExtractTextPlugin('[name].[contenthash].css'), 
       new WebpackMd5Hash(),
-      
-      /**
-       * Plugin: DedupePlugin
-       * Description: Prevents the inclusion of duplicate code into your bundle
-       * and instead applies a copy of the function at runtime.
-       *
-       * See: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
-       * See: https://github.com/webpack/docs/wiki/optimization#deduplication
-       */
-      // new DedupePlugin(), // see: https://github.com/angular/angular-cli/issues/1587
 
       new DefinePlugin({
         'ENV': JSON.stringify(METADATA.ENV),
@@ -76,7 +84,7 @@ module.exports = function (env) {
         'process.env': {
           'ENV': JSON.stringify(METADATA.ENV),
           'NODE_ENV': JSON.stringify(METADATA.ENV),
-          'HMR': METADATA.HMR,
+          'HMR': METADATA.HMR
         }
       }),
 
@@ -113,12 +121,12 @@ module.exports = function (env) {
        */
 
       new NormalModuleReplacementPlugin(
-        /angular2-hmr/,
+          /angular2-hmr/,
         helpers.root('config/empty.js')
       ),
 
       new NormalModuleReplacementPlugin(
-        /zone\.js(\\|\/)dist(\\|\/)long-stack-trace-zone/,
+          /zone\.js(\\|\/)dist(\\|\/)long-stack-trace-zone/,
         helpers.root('config/empty.js')
       ),
 
@@ -153,18 +161,49 @@ module.exports = function (env) {
       //   helpers.root('config/empty.js')
       // ),
 
-      /**
-       * Plugin: CompressionPlugin
-       * Description: Prepares compressed versions of assets to serve
-       * them with Content-Encoding
-       *
-       * See: https://github.com/webpack/compression-webpack-plugin
-       */
-      //  install compression-webpack-plugin
+      
       new CompressionPlugin({
         regExp: /\.css$|\.html$|\.js$|\.map$/,
         threshold: 2 * 1024
-      })
+      }),
+      
+      new LoaderOptionsPlugin({
+        minimize: true,
+        debug: false,
+        options: {
+
+          /**
+           * Html loader advanced options
+           *
+           * See: https://github.com/webpack/html-loader#advanced-options
+           */
+          // TODO: Need to workaround Angular 2's html syntax => #id [bind] (event) *ngFor
+          htmlLoader: {
+            minimize: true,
+            removeAttributeQuotes: false,
+            caseSensitive: true,
+            customAttrSurround: [
+              [/#/, /(?:)/],
+              [/\*/, /(?:)/],
+              [/\[?\(?/, /(?:)/]
+            ],
+            customAttrAssign: [/\)?\]?=/]
+          },
+
+        }
+      }),
+
+      /**
+       * Plugin: BundleAnalyzerPlugin
+       * Description: Webpack plugin and CLI utility that represents
+       * bundle content as convenient interactive zoomable treemap
+       *
+       * `npm run build:prod -- --env.analyze` to use
+       *
+       * See: https://github.com/th0r/webpack-bundle-analyzer
+       */
+
+        ======= end
     ],
     
     /*
