@@ -10,6 +10,7 @@
     "noEmit": true,
     "noEmitHelpers": true,
     "strictNullChecks": false,
+    "baseUrl": "./src",
     "lib": [
       "dom",
       "es2017"

@@ -10,8 +10,9 @@
     "noEmit": true,
     "noEmitHelpers": true,
     "strictNullChecks": false,
+    "baseUrl": "./src",
     "lib": [
-      "es2015",
+      "es2017",
       "dom"
     ],
     "typeRoots": [

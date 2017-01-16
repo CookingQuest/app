@@ -9,21 +9,21 @@ export const initialState: AppState = readInitialState();
 export const actions = { setRootState };
 
 export interface AppState {
-    user: Map<string, any>;
+  user: Map<string, any>;
 }
 
 const reducers = {
-    user
+  user
 };
 
 const developmentReducer = compose(stateSetter, combineReducers)(reducers);
 const productionReducer = compose(combineReducers)(reducers);
 
 export const rootReducer = (state: any, action: any) =>
-    ENV !== 'development' ? productionReducer(state, action) : developmentReducer(state, action);
+  ENV !== 'development' ? productionReducer(state, action) : developmentReducer(state, action);
 
 function readInitialState() {
-    return Object.entries((<any>window).initial_state)
-        .reduce((state: AppState, [key, val]) => ({ ...state, [key]: fromJS(val) }),
-        (<AppState>{}));
+  return Object.entries((<any>window).initial_state)
+    .reduce((state: AppState, [key, val]) => ({ ...state, [key]: fromJS(val) }),
+            (<AppState>{}));
 }
