@@ -10,7 +10,6 @@ const HtmlElementsPlugin = require('./html-elements-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-const INITIAL_STATE = require('../src/api/mock_state.ts');
 const ngcWebpack = require('ngc-webpack');
 
 const HMR = helpers.hasProcessFlag('hot');
@@ -59,7 +58,8 @@ module.exports = function (options) {
         
         {
           test: /\.json$/,
-          use: 'json-loader'
+          use: 'json-loader',
+          exclude: [helpers.root('src/api/mock_state.json')]
         }, 
         {
           test: /\.css$/, 
@@ -89,7 +89,8 @@ module.exports = function (options) {
         
         {
           test: /\.html$/,
-          use: 'raw-loader' 
+          use: 'raw-loader',
+          exclude: [helpers.root('src/index.html')]
         }
       ]
     },
@@ -141,14 +142,12 @@ module.exports = function (options) {
       ]),
 
       new HtmlWebpackPlugin({
-        template: '!!handlebars-loader!src/index.hbs',
-        title: METADATA.title,
+        template: 'src/index.html',
         minify: isProd ? {collapseWhitespace: true} : false,
         filename: 'index.html',
         chunksSortMode: 'dependency',
         metadata: METADATA,
-        baseUrl: isProd ? /blog/ : '/',
-        INITIAL_STATE: JSON.stringify(INITIAL_STATE),
+        baseUrl: isProd ? /blog/ : '/', 
         inject: 'head'
       }),
       
