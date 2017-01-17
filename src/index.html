@@ -18,12 +18,9 @@
   
   <app></app>
   
-  <script>var initial_state =
-    <%if (htmlWebpackPlugin.options.metadata.isDevServer) { %>
-      <%= require('raw-loader!./api/mock_state.json') %>
-      <% } else{ %> 
-        ${data.initial_state}
- <% } %>
+  <script>var initial_state = <%if (htmlWebpackPlugin.options.metadata.isDevServer) { %>
+    <%= require('raw-loader!./api/mock_state.json') %>
+    <% } else{ %><%= "${data.initial_state}" %> <% } %>
   </script>
 </body>
 </html>

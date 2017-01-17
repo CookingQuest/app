@@ -50,7 +50,7 @@ module.exports = function (env) {
      */
     output: {
       
-      path: helpers.root('../dist/blog'),
+      path: helpers.root('../dist'),
       filename: 'js/[name].[chunkhash].bundle.js',
       sourceMapFilename: 'js/[name].[chunkhash].bundle.map',
       chunkFilename: 'js/[id].[chunkhash].chunk.js' 
@@ -67,7 +67,6 @@ module.exports = function (env) {
           loader: ExtractTextPlugin.extract({
             fallbackLoader: 'style-loader',
             loader: [{loader: 'css-loader', query: { importLoaders: 1 }},
-                     'resolve-url-loader',
                      'postcss-loader']
           }),
           include: [helpers.root('src', 'styles')]
@@ -202,8 +201,6 @@ module.exports = function (env) {
        *
        * See: https://github.com/th0r/webpack-bundle-analyzer
        */
-
-        ======= end
     ],
     
     /*

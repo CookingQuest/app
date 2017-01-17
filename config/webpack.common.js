@@ -64,8 +64,7 @@ module.exports = function (options) {
         {
           test: /\.css$/, 
           use: ['to-string-loader',
-                {loader: 'css-loader', query: { importLoaders: 1 }},
-                'resolve-url-loader',
+                {loader: 'css-loader', query: { importLoaders: 1 }}, 
                 'postcss-loader'],
           exclude: [helpers.root('src', 'styles')]
         },
@@ -107,7 +106,7 @@ module.exports = function (options) {
       }),
       
       new AssetsPlugin({
-        path: helpers.root('../dist/blog'),
+        path: helpers.root('../dist'),
         filename: 'webpack-assets.json',
         prettyPrint: true
       }),
@@ -147,7 +146,7 @@ module.exports = function (options) {
         filename: 'index.html',
         chunksSortMode: 'dependency',
         metadata: METADATA,
-        baseUrl: isProd ? /blog/ : '/', 
+        baseUrl: '/', 
         inject: 'head'
       }),
       
