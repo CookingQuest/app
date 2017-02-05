@@ -15,8 +15,7 @@ const ngcWebpack = require('ngc-webpack');
 const HMR = helpers.hasProcessFlag('hot');
 const AOT = helpers.hasNpmFlag('aot');
 const METADATA = {
-  title: 'Angular2 Webpack Starter by @gdi2290 from @AngularClass',
-  isDevServer: helpers.isWebpackDevServer()
+  title: 'Angular2 Webpack Starter by @gdi2290 from @AngularClass'
 };
 
 module.exports = function (options) {
@@ -24,11 +23,9 @@ module.exports = function (options) {
   return {
 
     entry: {
-
       'polyfills': './src/polyfills.browser.ts',
       'main':      AOT ? './src/main.browser.aot.ts' :
         './src/main.browser.ts'
-
     },
 
     resolve: {

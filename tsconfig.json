@@ -10,7 +10,9 @@
     "noEmit": true,
     "noEmitHelpers": true,
     "importHelpers": true,
+    "noImplicitAny": true,
     "strictNullChecks": false,
+    "noUnusedLocals": true,
     "baseUrl": "./src",
     "lib": [
       "dom",
@@ -29,7 +31,7 @@
     ]
   },
   "exclude": [
-    "node_modules" 
+    "node_modules"
   ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,
