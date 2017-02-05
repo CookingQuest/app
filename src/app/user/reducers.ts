@@ -7,7 +7,7 @@ export const userActions = {
 };
 
 const ACTION_HANDLERS = {
-    [GAIN_EXP]: gainExpHandler
+  [GAIN_EXP]: gainExpHandler
 };
 
 function gainExpHandler(state, payload) {

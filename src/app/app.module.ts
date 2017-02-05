@@ -6,46 +6,53 @@ import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { StoreModule, Store } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { RouterStoreModule } from '@ngrx/router-store';
+import { MaterialModule } from '@angular/material';
+import { EffectsModule } from '@ngrx/effects';
 
-import { connect } from 'api/websocket';
 
 import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
+import { rootReducer, AppState, actions, readInitialState } from 'reducers';
+import { AuthEffects } from './tutorial/tutorial.reducers';
+import { ApiService } from 'api';
 
-import { rootReducer, AppState, actions, initialState } from 'reducers';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home';
+import { TutorialComponent } from './tutorial';
 import { UserComponent } from './user';
 
 const APP_PROVIDERS = [
+  ApiService
 ];
 
-/**
- * `AppModule` is the main entry point into Angular2's bootstraping process
- */
 @NgModule({
-    bootstrap: [AppComponent],
-    declarations: [
-        AppComponent,
-        HomeComponent,
-        UserComponent
-    ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        HttpModule,
-        RouterModule.forRoot(ROUTES, {}),
-        StoreModule.provideStore(rootReducer, initialState),
-        StoreDevtoolsModule.instrumentOnlyWithExtension(),
-    ],
-    providers: [ // expose our Services and Providers into Angular's dependency injection
-        ENV_PROVIDERS,
-        APP_PROVIDERS
-    ]
+  bootstrap: [AppComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    TutorialComponent,
+    UserComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    RouterModule.forRoot(ROUTES, {}),
+    StoreModule.provideStore(rootReducer, readInitialState()),
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    RouterStoreModule.connectRouter(),
+    MaterialModule.forRoot(),
+    EffectsModule.run(AuthEffects)
+  ],
+  providers: [ // expose our Services and Providers into Angular's dependency injection
+    ENV_PROVIDERS,
+    APP_PROVIDERS
+  ]
 })
 export class AppModule {
   constructor(public appRef: ApplicationRef, private _store: Store<AppState>) {
-    connect();
+    if(initial_state.router) history.replaceState({}, null, initial_state.router.path);
   }
 
   hmrOnInit(store) {

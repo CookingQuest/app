@@ -1,14 +1,7 @@
-/**
- * @author: @AngularClass
- */
-
 const helpers = require('./helpers');
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
 const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
 
-/**
- * Webpack Plugins
- */
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const IgnorePlugin = require('webpack/lib/IgnorePlugin');
@@ -16,16 +9,16 @@ const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
-const WebpackMd5Hash = require('webpack-md5-hash');
-const V8LazyParseWebpackPlugin = require('v8-lazy-parse-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-/**
- * Webpack Constants
- */
+const OptimizeJsPlugin = require('optimize-js-plugin');
+
+
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 8080;
-const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
+const METADATA = webpackMerge(commonConfig({
+  env: ENV
+}).metadata, {
   host: HOST,
   port: PORT,
   ENV: ENV,
@@ -33,7 +26,9 @@ const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
 });
 
 module.exports = function (env) {
-  return webpackMerge(commonConfig({env: ENV}), {
+  return webpackMerge(commonConfig({
+    env: ENV
+  }), {
 
     /**
      * Developer tool to enhance debugging
@@ -49,11 +44,11 @@ module.exports = function (env) {
      * See: http://webpack.github.io/docs/configuration.html#output
      */
     output: {
-      
+
       path: helpers.root('../dist'),
       filename: 'js/[name].[chunkhash].bundle.js',
       sourceMapFilename: 'js/[name].[chunkhash].bundle.map',
-      chunkFilename: 'js/[id].[chunkhash].chunk.js' 
+      chunkFilename: 'js/[id].[chunkhash].chunk.js'
     },
 
     module: {
@@ -74,8 +69,11 @@ module.exports = function (env) {
       ]
     },
     plugins: [
-      new ExtractTextPlugin('[name].[contenthash].css'), 
-      new WebpackMd5Hash(),
+
+      new OptimizeJsPlugin({
+        sourceMap: false
+      }),
+      new ExtractTextPlugin('[name].[contenthash].css'),
 
       new DefinePlugin({
         'ENV': JSON.stringify(METADATA.ENV),
@@ -88,7 +86,7 @@ module.exports = function (env) {
       }),
 
       new UglifyJsPlugin({
-        
+
         beautify: false, //prod
         output: {
           comments: false
@@ -160,12 +158,12 @@ module.exports = function (env) {
       //   helpers.root('config/empty.js')
       // ),
 
-      
+
       new CompressionPlugin({
         regExp: /\.css$|\.html$|\.js$|\.map$/,
         threshold: 2 * 1024
       }),
-      
+
       new LoaderOptionsPlugin({
         minimize: true,
         debug: false,
@@ -202,7 +200,7 @@ module.exports = function (env) {
        * See: https://github.com/th0r/webpack-bundle-analyzer
        */
     ],
-    
+
     /*
      * Include polyfills or mocks for various node stuff
      * Description: Node configuration

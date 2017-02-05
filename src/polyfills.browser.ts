@@ -28,10 +28,9 @@ import 'core-js/es7/object';
 import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
 
-// Typescript emit helpers polyfill
-import 'ts-helpers';
-
 import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/switchMap';
+
 
 if ('production' === ENV) {
   // Production

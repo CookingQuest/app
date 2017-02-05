@@ -10,9 +10,6 @@ import { bootloader } from '@angularclass/hmr';
  */
 import { AppModule } from './app';
 
-/*
- * Bootstrap our Angular app with a top level NgModule
- */
 export function main(): Promise<any> {
   return platformBrowserDynamic()
     .bootstrapModule(AppModule)

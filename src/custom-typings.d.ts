@@ -129,4 +129,4 @@ interface NodeRequireFunction extends Es6PromiseLoader  {}
 interface NodeModule extends WebpackModule {}
 interface Global extends GlobalEnvironment  {}
 
-declare var initial_state: Object;
+declare var initial_state: any;

@@ -15,14 +15,14 @@ const ngcWebpack = require('ngc-webpack');
 const HMR = helpers.hasProcessFlag('hot');
 const AOT = helpers.hasNpmFlag('aot');
 const METADATA = {
-  title: 'Angular2 Webpack Starter by @gdi2290 from @AngularClass', 
+  title: 'Angular2 Webpack Starter by @gdi2290 from @AngularClass',
   isDevServer: helpers.isWebpackDevServer()
 };
 
 module.exports = function (options) {
   var isProd = options.env === 'production';
   return {
-    
+
     entry: {
 
       'polyfills': './src/polyfills.browser.ts',
@@ -32,48 +32,61 @@ module.exports = function (options) {
     },
 
     resolve: {
-      extensions: ['.ts', '.js', '.json'], 
+      extensions: ['.ts', '.js', '.json'],
       modules: ['src', 'node_modules']
     },
-    
+
     module: {
       rules: [
         {
           test: /\.ts$/,
           use: [
-            '@angularclass/hmr-loader?pretty=' + !isProd + '&prod=' + isProd,
-            'awesome-typescript-loader?{configFileName: "tsconfig.webpack.json"}',
-            'angular2-template-loader',
             {
+              loader: '@angularclass/hmr-loader',
+              options: {
+                pretty: !isProd,
+                prod: isProd
+              }
+            },
+            { // MAKE SURE TO CHAIN VANILLA JS CODE, I.E. TS COMPILATION OUTPUT.
               loader: 'ng-router-loader',
               options: {
-                loader: 'async-system',
+                loader: 'async-import',
                 genDir: 'compiled',
                 aot: AOT
               }
+            },
+            {
+              loader: 'awesome-typescript-loader',
+              options: {
+                configFileName: 'tsconfig.webpack.json'
+              }
+            },
+            {
+              loader: 'angular2-template-loader'
             }
           ],
           exclude: [/\.(spec|e2e)\.ts$/]
         },
-        
+
         {
           test: /\.json$/,
           use: 'json-loader',
           exclude: [helpers.root('src/api/mock_state.json')]
-        }, 
+        },
         {
-          test: /\.css$/, 
+          test: /\.css$/,
           use: ['to-string-loader',
-                {loader: 'css-loader', query: { importLoaders: 1 }}, 
+                {loader: 'css-loader', query: { importLoaders: 1 }},
                 'postcss-loader'],
           exclude: [helpers.root('src', 'styles')]
         },
-        
+
         {
           test: /\.woff$/,
-          loader: 'url-loader' 
+          loader: 'url-loader'
         },
-        
+
         {
           test: /\.(woff2|eot|ttf)$/,
           loader: 'file-loader',
@@ -85,7 +98,7 @@ module.exports = function (options) {
           loader: 'file-loader',
           query: {name: 'img/[name].[ext]'}
         },
-        
+
         {
           test: /\.html$/,
           use: 'raw-loader',
@@ -101,16 +114,16 @@ module.exports = function (options) {
         minimize: isProd,
         options: {
           context: helpers.root(),
-          output: {path: helpers.root()} 
+          output: {path: helpers.root()}
         }
       }),
-      
+
       new AssetsPlugin({
         path: helpers.root('../dist'),
         filename: 'webpack-assets.json',
         prettyPrint: true
       }),
-      new CheckerPlugin(), 
+      new CheckerPlugin(),
       new CommonsChunkPlugin({
         name: 'polyfills',
         chunks: ['polyfills']
@@ -119,7 +132,7 @@ module.exports = function (options) {
       new CommonsChunkPlugin({
         name: 'vendor',
         chunks: ['main'],
-        minChunks: module => /node_modules\//.test(module.resource)
+        minChunks: module => /node_modules/.test(module.resource)
       }),
       // Specify the correct order the scripts will be injected in
       new CommonsChunkPlugin({
@@ -137,7 +150,7 @@ module.exports = function (options) {
 
       new CopyWebpackPlugin([
         { from: 'src/assets/icon', to: 'icon' },
-        { from: 'src/meta'} 
+        { from: 'src/meta'}
       ]),
 
       new HtmlWebpackPlugin({
@@ -146,16 +159,16 @@ module.exports = function (options) {
         filename: 'index.html',
         chunksSortMode: 'dependency',
         metadata: METADATA,
-        baseUrl: '/', 
+        baseUrl: '/',
         inject: 'head'
       }),
-      
-      
+
+
       new ScriptExtHtmlWebpackPlugin({
         defaultAttribute: 'defer'
       }),
 
-      
+
       /*
        * Plugin: HtmlElementsPlugin
        * Description: Generate html tags based on javascript maps.

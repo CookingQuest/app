@@ -1,5 +1,7 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+
 import { ROUTES } from './app.routes';
+import { ApiService } from 'api';
 
 @Component({
   selector: 'app',
@@ -9,6 +11,12 @@ import { ROUTES } from './app.routes';
   ],
   templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   routes = ROUTES;
+
+  constructor(private api: ApiService) {}
+
+  ngOnInit() {
+    this.api.connect();
+  }
 }
