@@ -44,6 +44,19 @@ module.exports = function (options) {
 
       rules: [
         {
+          test: /\.ts$/,
+          use: [
+            {
+              loader: 'tslint-loader',
+              options: {
+                configFile: 'tslint.json'
+              }
+            }
+          ],
+          exclude: [/\.(spec|e2e)\.ts$/]
+        },
+
+        {
           test: /\.css$/,
           use: ['to-string-loader',
                 {loader: 'css-loader', query: { importLoaders: 1 }},
