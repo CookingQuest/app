@@ -68,8 +68,7 @@ module.exports = function (options) {
 
         {
           test: /\.json$/,
-          use: 'json-loader',
-          exclude: [helpers.root('src/api/mock_state.json')]
+          use: 'json-loader'
         },
         {
           test: /\.css$/,
