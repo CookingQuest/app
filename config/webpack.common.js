@@ -15,7 +15,7 @@ const ngcWebpack = require('ngc-webpack');
 const HMR = helpers.hasProcessFlag('hot');
 const AOT = helpers.hasNpmFlag('aot');
 const METADATA = {
-  title: 'Angular2 Webpack Starter by @gdi2290 from @AngularClass'
+  title: 'CookingQuest'
 };
 
 module.exports = function (options) {
@@ -30,7 +30,7 @@ module.exports = function (options) {
 
     resolve: {
       extensions: ['.ts', '.js', '.json'],
-      modules: ['src', 'node_modules']
+      modules: [helpers.root('src'), helpers.root('node_modules')]
     },
 
     module: {
@@ -79,26 +79,15 @@ module.exports = function (options) {
         },
 
         {
-          test: /\.woff$/,
-          loader: 'url-loader'
-        },
-
-        {
-          test: /\.(woff2|eot|ttf)$/,
-          loader: 'file-loader',
-          query: {name: 'fonts/[name].[ext]'}
-        },
-
-        {
-          test: /\.(svg|png|jpe?g|gif)$/,
-          loader: 'file-loader',
-          query: {name: 'img/[name].[ext]'}
-        },
-
-        {
           test: /\.html$/,
           use: 'raw-loader',
           exclude: [helpers.root('src/index.html')]
+        },
+
+        {
+          test: /\.(jpg|png|gif)$/,
+          loader: 'file-loader',
+          query: {name: 'img/[name].[ext]'}
         },
 
         {
@@ -112,17 +101,8 @@ module.exports = function (options) {
 
     plugins: [
 
-      new LoaderOptionsPlugin({
-        debug: !isProd,
-        minimize: isProd,
-        options: {
-          context: helpers.root(),
-          output: {path: helpers.root()}
-        }
-      }),
-
       new AssetsPlugin({
-        path: helpers.root('../dist'),
+        path: helpers.root('dist'),
         filename: 'webpack-assets.json',
         prettyPrint: true
       }),
@@ -171,33 +151,14 @@ module.exports = function (options) {
         defaultAttribute: 'defer'
       }),
 
-
-      /*
-       * Plugin: HtmlElementsPlugin
-       * Description: Generate html tags based on javascript maps.
-       *
-       * If a publicPath is set in the webpack output configuration, it will be automatically added to
-       * href attributes, you can disable that by adding a "=href": false property.
-       * You can also enable it to other attribute by settings "=attName": true.
-       *
-       * The configuration supplied is map between a location (key) and an element definition object (value)
-       * The location (key) is then exported to the template under then htmlElements property in webpack configuration.
-       *
-       * Example:
-       *  Adding this plugin configuration
-       *  new HtmlElementsPlugin({
-       *    headTags: { ... }
-       *  })
-       *
-       *  Means we can use it in the template like this:
-       *  <%= webpackConfig.htmlElements.headTags %>
-       *
-       * Dependencies: HtmlWebpackPlugin
-       */
       new HtmlElementsPlugin({
         headTags: require('./head-config.common')
       }),
 
+      new LoaderOptionsPlugin({
+        debug: !isProd,
+        minimize: isProd
+      }),
 
       // Fix Angular 2
       new NormalModuleReplacementPlugin(

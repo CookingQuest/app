@@ -45,7 +45,7 @@ module.exports = function (env) {
      */
     output: {
 
-      path: helpers.root('../dist'),
+      path: helpers.root('dist'),
       filename: 'js/[name].[chunkhash].bundle.js',
       sourceMapFilename: 'js/[name].[chunkhash].bundle.map',
       chunkFilename: 'js/[id].[chunkhash].chunk.js'

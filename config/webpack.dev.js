@@ -21,7 +21,7 @@ const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
 const DllBundlesPlugin = require('webpack-dll-bundles-plugin').DllBundlesPlugin;
 
 module.exports = function (options) {
-  var config = {
+  return webpackMerge(commonConfig({env: ENV}), {
 
     devtool: 'cheap-module-source-map',
 
@@ -31,7 +31,7 @@ module.exports = function (options) {
 
     output: {
 
-      path: helpers.root('../dist'),
+      path: helpers.root('dist'),
       filename: 'js/[name].bundle.js',
       sourceMapFilename: 'js/[file].map',
       chunkFilename: 'js/[id].chunk.js',
@@ -129,6 +129,6 @@ module.exports = function (options) {
     }
 
   };
-  config = webpackMerge(commonConfig({env: ENV}), config);
-  return config;
-}
+                      config = webpackMerge(commonConfig({env: ENV}), config);
+                      return config;
+                     }
