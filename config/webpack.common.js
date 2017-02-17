@@ -100,8 +100,15 @@ module.exports = function (options) {
           test: /\.html$/,
           use: 'raw-loader',
           exclude: [helpers.root('src/index.html')]
+        },
+
+        {
+          test: /\.(eot|woff2?|svg|ttf)([\?]?.*)$/,
+          use: 'file-loader'
         }
-      ]
+
+      ],
+
     },
 
     plugins: [
