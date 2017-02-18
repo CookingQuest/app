@@ -7,9 +7,9 @@ export class ApiService {
 
   private ws: Websocket;
 
-  connect = () => {
+  public connect = () => {
     this.ws = new Websocket();
   }
 
-  public callMethod = (method, params) => this.ws.api(method, params);
+  public callMethod = (method: string, params: string[]) => this.ws.api(method, params);
 }

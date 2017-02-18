@@ -10,7 +10,10 @@
     "noEmit": true,
     "noEmitHelpers": true,
     "importHelpers": true,
+    "noImplicitAny": true,
     "strictNullChecks": false,
+    "noUnusedLocals": true,
+    "baseUrl": "./src",
     "lib": [
       "es2017",
       "dom"

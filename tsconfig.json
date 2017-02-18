@@ -13,6 +13,7 @@
     "noImplicitAny": true,
     "strictNullChecks": false,
     "noUnusedLocals": true,
+    "baseUrl": "./src",
     "lib": [
       "dom",
       "es2017"

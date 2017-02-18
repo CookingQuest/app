@@ -9,11 +9,11 @@ import { actions } from '.';
   styleUrls: ['./tutorial.component.css']
 })
 export class TutorialComponent {
-  email: string;
+  public email: string;
 
   constructor(private store: Store<AppState>) {}
-  
-  register() {
-    this.store.dispatch(actions.register(this.email))
+
+  public register() {
+    this.store.dispatch(actions.register(this.email));
   }
 }

@@ -31,7 +31,6 @@ import 'zone.js/dist/zone';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/switchMap';
 
-
 if ('production' === ENV) {
   // Production
 

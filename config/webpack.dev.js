@@ -127,8 +127,5 @@ module.exports = function (options) {
       clearImmediate: false,
       setImmediate: false
     }
-
-  };
-                      config = webpackMerge(commonConfig({env: ENV}), config);
-                      return config;
-                     }
+  });
+};

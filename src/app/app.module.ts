@@ -10,7 +10,6 @@ import { RouterStoreModule } from '@ngrx/router-store';
 import { MaterialModule } from '@angular/material';
 import { EffectsModule } from '@ngrx/effects';
 
-
 import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
 import { rootReducer, AppState, actions, readInitialState } from 'reducers';
@@ -52,11 +51,15 @@ const APP_PROVIDERS = [
 })
 export class AppModule {
   constructor(public appRef: ApplicationRef, private _store: Store<AppState>) {
-    if(initial_state.router) history.replaceState({}, null, initial_state.router.path);
+    if (initial_state.router) {
+      history.replaceState({}, null, initial_state.router.path);
+    }
   }
 
-  hmrOnInit(store) {
-    if (!store || !store.rootState) return;
+  public hmrOnInit(store: any) {
+    if (!store || !store.rootState) {
+      return;
+    }
 
     // restore state by dispatch a SET_ROOT_STATE action
     if (store.rootState) {
@@ -65,18 +68,18 @@ export class AppModule {
 
     if ('restoreInputValues' in store) { store.restoreInputValues(); }
     this.appRef.tick();
-    Object.keys(store).forEach(prop => delete store[prop]);
+    Object.keys(store).forEach((prop) => delete store[prop]);
   }
 
-  hmrOnDestroy(store) {
-    const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
-    this._store.take(1).subscribe(s => store.rootState = s);
+  public hmrOnDestroy(store: any) {
+    const cmpLocation = this.appRef.components.map((cmp) => cmp.location.nativeElement);
+    this._store.take(1).subscribe((s) => store.rootState = s);
     store.disposeOldHosts = createNewHosts(cmpLocation);
     store.restoreInputValues = createInputTransfer();
     removeNgStyles();
   }
 
-  hmrAfterDestroy(store) {
+  public hmrAfterDestroy(store: any) {
     store.disposeOldHosts();
     delete store.disposeOldHosts;
   }
