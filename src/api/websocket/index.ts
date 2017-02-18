@@ -13,21 +13,27 @@ export class Websocket {
 
     this.graphqlChannel = socket.channel('graphql', {});
     this.graphqlChannel.join()
-      .receive('ok', resp => { console.log('Joined successfully', resp); })
-      .receive('error', resp => { console.log('Unable to join', resp); });
+      .receive('ok', (resp: any) => { console.log('Joined successfully', resp); })
+      .receive('error', (resp: any) => { console.log('Unable to join', resp); });
 
     this.apiChannel = socket.channel('api', {});
     this.apiChannel.join()
-      .receive('ok', resp => { console.log('Joined successfully', resp); })
-      .receive('error', resp => { console.log('Unable to join', resp); });
+      .receive('ok', (resp: any) => { console.log('Joined successfully', resp); })
+      .receive('error', (resp: any) => { console.log('Unable to join', resp); });
   }
 
-  api(method, ...params) {
+  public api(method: string, params: string[]) {
     return new Promise(
-      resolve => this.apiChannel.push('call', {method, params}, 5000)
-        .receive("ok", ({data}) => resolve(data))
+      (resolve) => this.apiChannel.push('call', {method, params}, 5000)
+        .receive('ok', ({data}: Response) => resolve(data))
     );
   }
 
-  gql() {}
+  public gql() {
+    // todo
+  }
+}
+
+interface Response {
+  data: any;
 }

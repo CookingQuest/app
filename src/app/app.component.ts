@@ -11,12 +11,13 @@ import { ApiService } from 'api';
   ],
   templateUrl: './app.component.html'
 })
+
 export class AppComponent implements OnInit {
-  routes = ROUTES;
+  public routes = ROUTES;
 
   constructor(private api: ApiService) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     this.api.connect();
   }
 }

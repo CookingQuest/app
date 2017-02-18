@@ -7,21 +7,21 @@ import { AppState } from 'reducers';
 import { userActions } from './reducers';
 
 @Component({
-    selector: 'user',
-    styleUrls: [
-        './user.component.css'
-    ],
-    templateUrl: './user.component.html'
+  selector: 'user',
+  styleUrls: [
+    './user.component.css'
+  ],
+  templateUrl: './user.component.html'
 })
 export class UserComponent {
 
-    user: Observable<Map<string, any>>;
+  public user: Observable<Map<string, any>>;
 
   constructor(private store: Store<AppState>) {
-    this.user = store.select(s => s.user);
+    this.user = store.select((s) => s.user);
   }
 
-  gainExp() {
+  public gainExp() {
     this.store.dispatch(userActions.gainExp(999));
   }
 }

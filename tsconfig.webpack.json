@@ -10,7 +10,9 @@
     "noEmit": true,
     "noEmitHelpers": true,
     "importHelpers": true,
+    "noImplicitAny": true,
     "strictNullChecks": false,
+    "noUnusedLocals": true,
     "baseUrl": "./src",
     "lib": [
       "es2017",
@@ -25,7 +27,8 @@
     ]
   },
   "exclude": [
-    "node_modules", 
+    "node_modules",
+    "dist",
     "src/**/*.spec.ts",
     "src/**/*.e2e.ts"
   ],
