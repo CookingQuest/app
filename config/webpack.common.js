@@ -15,6 +15,8 @@ const ngcWebpack = require('ngc-webpack');
 const HMR = helpers.hasProcessFlag('hot');
 const AOT = helpers.hasNpmFlag('aot');
 const METADATA = {
+  baseUrl: '/',
+  isDevServer: helpers.isWebpackDevServer()
   title: 'CookingQuest'
 };
 

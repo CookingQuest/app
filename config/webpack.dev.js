@@ -6,13 +6,15 @@ const commonConfig = require('./webpack.common.js'); // the settings that are co
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
-const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin');
-const NoEmitOnErrorsPlugin = require('webpack/lib/NoEmitOnErrorsPlugin');
 
 
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
+const HOST = process.env.HOST || 'localhost';
+const PORT = process.env.PORT || 3000;
 const HMR = helpers.hasProcessFlag('hot');
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
+  host: HOST,
+  port: PORT,
   ENV: ENV,
   HMR: HMR
 });
@@ -24,10 +26,6 @@ module.exports = function (options) {
   return webpackMerge(commonConfig({env: ENV}), {
 
     devtool: 'cheap-module-source-map',
-
-    entry: webpackMerge(commonConfig({env: ENV}).entry, {
-      hot: 'webpack-hot-middleware/client'
-    }),
 
     output: {
 
@@ -68,8 +66,6 @@ module.exports = function (options) {
     },
 
     plugins: [
-      new HotModuleReplacementPlugin(),
-      new NoEmitOnErrorsPlugin(),
 
       new DefinePlugin({
         'ENV': JSON.stringify(METADATA.ENV),
@@ -119,6 +115,15 @@ module.exports = function (options) {
       ])
     ],
 
+    devServer: {
+      port: METADATA.port,
+      host: METADATA.host,
+      historyApiFallback: true,
+      watchOptions: {
+        aggregateTimeout: 300,
+        poll: 1000
+      }
+    },
     node: {
       global: true,
       crypto: 'empty',
