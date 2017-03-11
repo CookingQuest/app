@@ -12,7 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
-import { rootReducer, AppState, actions, readInitialState } from 'reducers';
+import { rootReducer, AppState, actions, InternalStateType } from 'reducers';
 import { AuthEffects } from './tutorial/tutorial.reducers';
 import { ApiService } from 'api';
 
@@ -24,6 +24,12 @@ import { UserComponent } from './user';
 const APP_PROVIDERS = [
   ApiService
 ];
+
+type StoreType = {
+  state: InternalStateType,
+  restoreInputValues: () => void,
+  disposeOldHosts: () => void
+};
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -38,7 +44,7 @@ const APP_PROVIDERS = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(ROUTES, {}),
-    StoreModule.provideStore(rootReducer, readInitialState()),
+    StoreModule.provideStore(rootReducer, new AppState()),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     RouterStoreModule.connectRouter(),
     MaterialModule.forRoot(),
@@ -51,37 +57,43 @@ const APP_PROVIDERS = [
 })
 export class AppModule {
   constructor(public appRef: ApplicationRef, private _store: Store<AppState>) {
-    if (initial_state.router) {
-      history.replaceState({}, null, initial_state.router.path);
-    }
+    navToRouteFromState(initial_state);
   }
 
-  public hmrOnInit(store: any) {
-    if (!store || !store.rootState) {
+  public hmrOnInit(store: StoreType) {
+    if (!store || !store.state) {
       return;
     }
-
+    console.log('HMR store', JSON.stringify(store, null, 2));
     // restore state by dispatch a SET_ROOT_STATE action
-    if (store.rootState) {
-      this._store.dispatch(actions.setRootState(store.rootState));
-    }
+    this._store.dispatch(actions.setRootState(store.state));
 
-    if ('restoreInputValues' in store) { store.restoreInputValues(); }
+    if ('restoreInputValues' in store) {
+      let restoreInputValues = store.restoreInputValues;
+      setTimeout(restoreInputValues);
+    }
     this.appRef.tick();
-    Object.keys(store).forEach((prop) => delete store[prop]);
+    delete store.state;
+    delete store.restoreInputValues;
   }
 
-  public hmrOnDestroy(store: any) {
+  public hmrOnDestroy(store: StoreType) {
     const cmpLocation = this.appRef.components.map((cmp) => cmp.location.nativeElement);
-    this._store.take(1).subscribe((s) => store.rootState = s);
+    this._store.take(1).subscribe((s) => store.state = s);
     store.disposeOldHosts = createNewHosts(cmpLocation);
     store.restoreInputValues = createInputTransfer();
     removeNgStyles();
   }
 
-  public hmrAfterDestroy(store: any) {
+  public hmrAfterDestroy(store: StoreType) {
     store.disposeOldHosts();
     delete store.disposeOldHosts;
   }
 
+}
+
+function navToRouteFromState(state: AppState) {
+  if (state.router) {
+    history.replaceState({}, null, state.router.path);
+  }
 }

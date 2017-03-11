@@ -22,9 +22,4 @@ https://github.com/ngrx/example-app/blob/master/src/app/reducers/index.ts
 * TODO authentication
 * TODO remove webpack config at root [unclear]
 - does it still work without
-* DONE
-** Restructure app / components / reducers at src level
-- weback resolution
-
-** websocket [1/1]
- - [X] establish connection
+* TODO OnPush change detection see ngrx store readme

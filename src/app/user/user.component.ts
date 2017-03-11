@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Map } from 'immutable';
 import { Store } from '@ngrx/store';
 
 import { AppState } from 'reducers';
-import { userActions } from './reducers';
+import { userActions, UserState } from './reducers';
 
 @Component({
   selector: 'user',
@@ -15,7 +14,7 @@ import { userActions } from './reducers';
 })
 export class UserComponent {
 
-  public user: Observable<Map<string, any>>;
+  public user: Observable<UserState>;
 
   constructor(private store: Store<AppState>) {
     this.user = store.select((s) => s.user);
