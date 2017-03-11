@@ -8,6 +8,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 const HtmlElementsPlugin = require('./html-elements-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const ngcWebpack = require('ngc-webpack');
@@ -16,7 +17,7 @@ const HMR = helpers.hasProcessFlag('hot');
 const AOT = helpers.hasNpmFlag('aot');
 const METADATA = {
   baseUrl: '/',
-  isDevServer: helpers.isWebpackDevServer()
+  isDevServer: helpers.isWebpackDevServer(),
   title: 'CookingQuest'
 };
 
@@ -104,7 +105,7 @@ module.exports = function (options) {
     plugins: [
 
       new AssetsPlugin({
-        path: helpers.root('dist'),
+        path: helpers.root('../dist'),
         filename: 'webpack-assets.json',
         prettyPrint: true
       }),
@@ -139,15 +140,16 @@ module.exports = function (options) {
       ]),
 
       new HtmlWebpackPlugin({
-        template: 'src/index.html',
+        template: 'src/index.marko',
         minify: isProd ? {collapseWhitespace: true} : false,
-        filename: 'index.html',
+        alwaysWriteToDisk: true,
+        filename: '../koa/templates/index.marko',
         chunksSortMode: 'dependency',
         metadata: METADATA,
         baseUrl: '/',
         inject: 'head'
       }),
-
+      new HtmlWebpackHarddiskPlugin(),
 
       new ScriptExtHtmlWebpackPlugin({
         defaultAttribute: 'defer'

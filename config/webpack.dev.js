@@ -28,8 +28,8 @@ module.exports = function (options) {
     devtool: 'cheap-module-source-map',
 
     output: {
-
-      path: helpers.root('dist'),
+      publicPath: '/',
+      path: helpers.root('../dist'),
       filename: 'js/[name].bundle.js',
       sourceMapFilename: 'js/[file].map',
       chunkFilename: 'js/[id].chunk.js',
@@ -118,10 +118,21 @@ module.exports = function (options) {
     devServer: {
       port: METADATA.port,
       host: METADATA.host,
-      historyApiFallback: true,
+      quiet: false,
+      stats: 'errors-only', // none (or false), errors-only, minimal, normal (or true) and verbose
       watchOptions: {
         aggregateTimeout: 300,
         poll: 1000
+      },
+      proxy: {
+
+        '!**/*.*': {
+          target: 'http://localhost:3001'
+        },
+        '/socket/*': {
+          target: 'http://localhost:4000',
+          ws: true
+        }
       }
     },
     node: {
