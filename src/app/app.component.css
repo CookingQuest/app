@@ -1,0 +1,29 @@
+@lost flexbox flex;
+
+.bg-img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  transform: scale(1.1);
+  filter: blur(15px);
+  transition: .4s ease all;
+}
+
+.header {
+  lost-row: 1/6;
+  lost-center: 90%;
+  padding-top: 40px;
+  user {
+    color: white;
+    font-size: 16;
+    lost-column: 1/2 1;
+    lost-align: center;
+    height: 80px;
+    display: block;
+    lost-center: 140px;
+    lost-utility: edit;
+  }
+}

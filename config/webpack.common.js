@@ -88,9 +88,12 @@ module.exports = function (options) {
         },
 
         {
-          test: /\.(jpg|png|gif)$/,
-          loader: 'file-loader',
-          query: {name: 'img/[name].[ext]'}
+          test: /\.(jpg|png|gif|webp)$/,
+          loader: 'url-loader',
+          query: {
+            limit: 10000,
+            name: 'img/[name].[ext]'
+          }
         },
 
         {
