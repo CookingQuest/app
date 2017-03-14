@@ -1,2 +1,10 @@
-<div>{{(user | async).name}} Lv{{(user | async).stats.level}}</div>
-<div>Experience: {{(user | async).stats.exp}}</div>
+<div>
+  <span>{{(user | async).name}}</span>
+  <span>Lv{{(user | async).stats.level}}</span>
+</div>
+<div>
+  <span>Experience: {{(user | async).stats.exp}}</span>
+</div>
+<div>
+  <rect-btn (onClick)="logout()"></rect-btn>
+</div>

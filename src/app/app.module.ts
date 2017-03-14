@@ -20,6 +20,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home';
 import { TutorialComponent } from './tutorial';
 import { UserComponent } from './user';
+import { RectBtnComponent } from './elements';
 
 const APP_PROVIDERS = [
   ApiService
@@ -37,7 +38,8 @@ type StoreType = {
     AppComponent,
     HomeComponent,
     TutorialComponent,
-    UserComponent
+    UserComponent,
+    RectBtnComponent
   ],
   imports: [
     BrowserModule,

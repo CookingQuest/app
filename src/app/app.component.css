@@ -17,13 +17,9 @@
   lost-center: 90%;
   padding-top: 40px;
   user {
-    color: white;
-    font-size: 16;
     lost-column: 1/2 1;
-    lost-align: center;
     height: 80px;
     display: block;
     lost-center: 140px;
-    lost-utility: edit;
   }
 }
