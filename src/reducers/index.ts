@@ -8,13 +8,9 @@ import { reducer as tutorial } from 'app/tutorial';
 
 export const actions = { setRootState };
 
-export class AppState {
-  public user: UserState;
-  public router: RouterState;
-
-  constructor() {
-    Object.assign(this, initial_state);
-  }
+export interface AppState {
+  user: UserState;
+  router: RouterState;
 }
 
 export type InternalStateType = {
@@ -30,5 +26,11 @@ const reducers = {
 const developmentReducer = compose(stateSetter, combineReducers)(reducers);
 const productionReducer = compose(combineReducers)(reducers);
 
-export const rootReducer = (state: any, action: any) =>
-  ENV !== 'development' ? productionReducer(state, action) : developmentReducer(state, action);
+export function getAppState(): AppState {
+  return <AppState> initial_state;
+}
+
+export function rootReducer(state: any, action: any) {
+  return ENV !== 'development' ?
+    productionReducer(state, action): developmentReducer(state, action);
+}

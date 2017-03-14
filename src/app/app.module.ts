@@ -12,7 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
-import { rootReducer, AppState, actions, InternalStateType } from 'reducers';
+import { rootReducer, AppState, actions, InternalStateType, getAppState } from 'reducers';
 import { AuthEffects } from './tutorial/tutorial.reducers';
 import { ApiService } from 'api';
 
@@ -46,7 +46,7 @@ type StoreType = {
     FormsModule,
     HttpModule,
     RouterModule.forRoot(ROUTES, {}),
-    StoreModule.provideStore(rootReducer, new AppState()),
+    StoreModule.provideStore(rootReducer, getAppState),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     RouterStoreModule.connectRouter(),
     MaterialModule.forRoot(),

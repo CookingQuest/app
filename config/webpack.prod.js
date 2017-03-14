@@ -30,22 +30,11 @@ module.exports = function (env) {
     env: ENV
   }), {
 
-    /**
-     * Developer tool to enhance debugging
-     *
-     * See: http://webpack.github.io/docs/configuration.html#devtool
-     * See: https://github.com/webpack/docs/wiki/build-performance#sourcemaps
-     */
     devtool: 'source-map',
 
-    /**
-     * Options affecting the output of the compilation.
-     *
-     * See: http://webpack.github.io/docs/configuration.html#output
-     */
     output: {
-
-      path: helpers.root('dist'),
+      publicPath: '/',
+      path: helpers.root('../dist'),
       filename: 'js/[name].[chunkhash].bundle.js',
       sourceMapFilename: 'js/[name].[chunkhash].bundle.map',
       chunkFilename: 'js/[id].[chunkhash].chunk.js'
@@ -54,9 +43,6 @@ module.exports = function (env) {
     module: {
 
       rules: [
-        /*
-         * Extract CSS files from .src/styles directory to external CSS file
-         */
         {
           test: /\.css$/,
           loader: ExtractTextPlugin.extract({
