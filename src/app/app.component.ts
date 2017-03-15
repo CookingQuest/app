@@ -1,6 +1,4 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-
-import { ROUTES } from './app.routes';
 import { ApiService } from 'api';
 
 @Component({
@@ -13,7 +11,6 @@ import { ApiService } from 'api';
 })
 
 export class AppComponent implements OnInit {
-  public routes = ROUTES;
 
   constructor(private api: ApiService) {}
 

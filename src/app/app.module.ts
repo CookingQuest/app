@@ -1,8 +1,5 @@
 import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { StoreModule, Store } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -11,20 +8,16 @@ import { MaterialModule } from '@angular/material';
 import { EffectsModule } from '@ngrx/effects';
 
 import { ENV_PROVIDERS } from './environment';
-import { ROUTES } from './app.routes';
+import { AppRoutingModule }   from './app-routing.module';
 import { rootReducer, AppState, actions, InternalStateType, getAppState } from 'reducers';
 import { AuthEffects } from './tutorial/tutorial.reducers';
-import { ApiService } from 'api';
 
+import { CoreModule } from './core';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home';
 import { TutorialComponent } from './tutorial';
 import { UserComponent } from './user';
 import { RectBtnComponent } from './elements';
-
-const APP_PROVIDERS = [
-  ApiService
-];
 
 type StoreType = {
   state: InternalStateType,
@@ -43,18 +36,16 @@ type StoreType = {
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpModule,
-    RouterModule.forRoot(ROUTES, {}),
+    CoreModule,
+    AppRoutingModule,
     StoreModule.provideStore(rootReducer, getAppState),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     RouterStoreModule.connectRouter(),
     MaterialModule.forRoot(),
     EffectsModule.run(AuthEffects)
   ],
-  providers: [ // expose our Services and Providers into Angular's dependency injection
-    ENV_PROVIDERS,
-    APP_PROVIDERS
+  providers: [
+    ENV_PROVIDERS
   ]
 })
 export class AppModule {

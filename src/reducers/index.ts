@@ -32,5 +32,5 @@ export function getAppState(): AppState {
 
 export function rootReducer(state: any, action: any) {
   return ENV !== 'development' ?
-    productionReducer(state, action): developmentReducer(state, action);
+    productionReducer(state, action) : developmentReducer(state, action);
 }
