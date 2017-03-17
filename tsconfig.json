@@ -11,6 +11,7 @@
     "noEmitHelpers": true,
     "importHelpers": true,
     "noImplicitAny": true,
+    "removeComments": true,
     "strictNullChecks": false,
     "noUnusedLocals": true,
     "baseUrl": "./src",

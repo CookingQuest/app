@@ -1,29 +1,24 @@
 import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
-import { StoreModule, Store } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { RouterStoreModule } from '@ngrx/router-store';
-import { MaterialModule } from '@angular/material';
-import { EffectsModule } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 
+import { AppRoutingModule }   from './app-routing.module';
+import { CoreModule } from './core';
 import { ENV_PROVIDERS } from './environment';
-import { ROUTES } from './app.routes';
-import { rootReducer, AppState, actions, readInitialState } from 'reducers';
-import { AuthEffects } from './tutorial/tutorial.reducers';
-import { ApiService } from 'api';
-
-import { AppComponent } from './app.component';
 import { HomeComponent } from './home';
+import { SharedModule } from './shared';
+import { AppStoreModule, AppState, actions, InternalStateType } from './store';
 import { TutorialComponent } from './tutorial';
 import { UserComponent } from './user';
 
-const APP_PROVIDERS = [
-  ApiService
-];
+import { AppComponent } from './app.component';
+
+type StoreType = {
+  state: InternalStateType,
+  restoreInputValues: () => void,
+  disposeOldHosts: () => void
+};
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -35,51 +30,42 @@ const APP_PROVIDERS = [
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpModule,
-    RouterModule.forRoot(ROUTES, {}),
-    StoreModule.provideStore(rootReducer, readInitialState()),
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),
-    RouterStoreModule.connectRouter(),
-    MaterialModule.forRoot(),
-    EffectsModule.run(AuthEffects)
+    SharedModule,
+    CoreModule,
+    AppRoutingModule,
+    AppStoreModule
   ],
-  providers: [ // expose our Services and Providers into Angular's dependency injection
-    ENV_PROVIDERS,
-    APP_PROVIDERS
+  providers: [
+    ENV_PROVIDERS
   ]
 })
 export class AppModule {
-  constructor(public appRef: ApplicationRef, private _store: Store<AppState>) {
-    if (initial_state.router) {
-      history.replaceState({}, null, initial_state.router.path);
-    }
-  }
+  constructor(public appRef: ApplicationRef, private _store: Store<AppState>) {}
 
-  public hmrOnInit(store: any) {
-    if (!store || !store.rootState) {
+  public hmrOnInit(store: StoreType) {
+    if (!store || !store.state) {
       return;
     }
+    this._store.dispatch(actions.setRootState(store.state));
 
-    // restore state by dispatch a SET_ROOT_STATE action
-    if (store.rootState) {
-      this._store.dispatch(actions.setRootState(store.rootState));
+    if ('restoreInputValues' in store) {
+      let restoreInputValues = store.restoreInputValues;
+      setTimeout(restoreInputValues);
     }
-
-    if ('restoreInputValues' in store) { store.restoreInputValues(); }
     this.appRef.tick();
-    Object.keys(store).forEach((prop) => delete store[prop]);
+    delete store.state;
+    delete store.restoreInputValues;
   }
 
-  public hmrOnDestroy(store: any) {
+  public hmrOnDestroy(store: StoreType) {
     const cmpLocation = this.appRef.components.map((cmp) => cmp.location.nativeElement);
-    this._store.take(1).subscribe((s) => store.rootState = s);
+    this._store.take(1).subscribe((s) => store.state = s);
     store.disposeOldHosts = createNewHosts(cmpLocation);
     store.restoreInputValues = createInputTransfer();
     removeNgStyles();
   }
 
-  public hmrAfterDestroy(store: any) {
+  public hmrAfterDestroy(store: StoreType) {
     store.disposeOldHosts();
     delete store.disposeOldHosts;
   }

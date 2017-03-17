@@ -1,4 +1,10 @@
-<div>This is the UserCcomponent</div>
-<div>{{(user | async).get('name')}} Lv{{(user | async).getIn(['stats', 'level'])}}</div>
-<div>Experience: {{(user | async).getIn(['stats', 'exp'])}}</div>
-<button (click)="gainExp()">Button</button>
+<div>
+  <span>{{(user | async).name}}</span>
+  <span>Lv{{(user | async).stats.level}}</span>
+</div>
+<div>
+  <span>Experience: {{(user | async).stats.exp}}</span>
+</div>
+<div>
+  <rect-btn (onClick)="logout()"></rect-btn>
+</div>

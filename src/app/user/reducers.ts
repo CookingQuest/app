@@ -1,27 +1,40 @@
-import { Map } from 'immutable';
-
-const GAIN_EXP = 'GAIN_EXP';
-
-const gainExp = (payload = 1) => ({ type: GAIN_EXP, payload });
+import iassign from 'immutable-assign';
+import { Action } from '@ngrx/store';
 
 export const userActions = {
   gainExp
 };
 
+const GAIN_EXP = 'GAIN_EXP';
 const ACTION_HANDLERS = {
   [GAIN_EXP]: gainExpHandler
 };
 
-function gainExpHandler(state: Map<string, any>, payload: Object) {
-  const exp = state.getIn(['stats', 'exp']) + payload;
-  let levelUps = exp / 1000;
-  const restExp = exp % 1000;
-  levelUps = Math.floor(levelUps);
-  return state.updateIn(['stats', 'level'], (v) => v + levelUps)
-    .updateIn(['stats', 'exp'], (v) => restExp);
+function gainExp(payload: number = 1): Action {
+  return { type: GAIN_EXP, payload };
 }
 
-export function user(state: Map<string, any>, action: any) {
+function gainExpHandler(state: UserState, payload: number): UserState {
+  return iassign(state, (s) => s.stats, (stats) => {
+    const exp = stats.exp + payload;
+    const levelUps = Math.floor(exp / 1000);
+    const restExp = exp % 1000;
+    stats.level += levelUps;
+    stats.exp = restExp;
+    return stats;
+  });
+}
+
+export function user(state: UserState, action: Action): UserState {
   const handler = ACTION_HANDLERS[action.type];
   return handler ? handler(state, action.payload) : state;
+}
+
+export interface UserState {
+  stats: Stats;
+}
+
+interface Stats {
+  level: number;
+  exp: number;
 }

@@ -1,13 +1,5 @@
-<nav>
-  <span *ngFor="let route of routes; let last = last">
-    <a *ngIf="route.data?.name" [routerLink]=" [route.path] " [routerLinkActive]="['active']"
-      [routerLinkActiveOptions]="{ exact: true }">
-      {{route.data.name}}
-    </a>
-    <span *ngIf="!last">|</span>
-  </span> 
-</nav>
+<div class="header">
+  <user></user>
+</div>
+<router-outlet></router-outlet>
 
-<main>
-  <router-outlet></router-outlet>
-</main>

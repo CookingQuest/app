@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Map } from 'immutable';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
-import { AppState } from 'reducers';
-import { userActions } from './reducers';
+import { AppState } from 'app/store';
+import { UserState, userActions } from './reducers';
 
 @Component({
   selector: 'user',
@@ -15,13 +14,13 @@ import { userActions } from './reducers';
 })
 export class UserComponent {
 
-  public user: Observable<Map<string, any>>;
+  public user: Observable<UserState>;
 
   constructor(private store: Store<AppState>) {
     this.user = store.select((s) => s.user);
   }
 
-  public gainExp() {
-    this.store.dispatch(userActions.gainExp(999));
+  public logout() {
+    this.store.dispatch(userActions.gainExp());
   }
 }

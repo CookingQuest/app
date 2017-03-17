@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title><%= htmlWebpackPlugin.options.metadata.title %></title>
+
+    <meta name="description" content="<%= htmlWebpackPlugin.options.metadata.title %>">
+
+    <%= webpackConfig.htmlElements.headTags %>
+
+    <base href="<%= htmlWebpackPlugin.options.baseUrl %>">
+  </head>
+
+  <body>
+
+    <app></app>
+
+    <script>var initial_state = <%= "${data.initialState}" %></script>
+  </body>
+</html>
