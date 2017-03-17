@@ -46,9 +46,9 @@ module.exports = function (env) {
         {
           test: /\.css$/,
           loader: ExtractTextPlugin.extract({
-            fallbackLoader: 'style-loader',
-            loader: [{loader: 'css-loader', query: { importLoaders: 1 }},
-                     'postcss-loader']
+            fallback: 'style-loader',
+            use: [{loader: 'css-loader', query: { importLoaders: 1 }},
+                  'postcss-loader']
           }),
           include: [helpers.root('src', 'styles')]
         },
