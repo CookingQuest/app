@@ -1,4 +1,4 @@
-* Blog
-[[https://travis-ci.org/Croissong/blog-app][https://travis-ci.org/Croissong/blog-app.svg]]
-[[https://david-dm.org/croissong/blog-app][https://david-dm.org/croissong/blog-app.svg]]
-[[https://david-dm.org/croissong/blog-app#info%3DdevDependencies][https://david-dm.org/croissong/blog-app/dev-status.svg]]
+* CookingQuest Angular2 App
+[[https://travis-ci.org/cookingquest/app][https://travis-ci.org/cookingquest/app.svg]]
+[[https://david-dm.org/cookingquest/app][https://david-dm.org/cookingquest/app.svg]]
+[[https://david-dm.org/cookingquest/app?type=dev][https://david-dm.org/cookingquest/app/dev-status.svg]]
