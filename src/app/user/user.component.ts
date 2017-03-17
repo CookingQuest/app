@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
-import { AppState } from 'reducers';
-import { UserState } from './reducers';
+import { AppState } from 'app/store';
+import { UserState, userActions } from './reducers';
 
 @Component({
   selector: 'user',
@@ -16,11 +16,11 @@ export class UserComponent {
 
   public user: Observable<UserState>;
 
-  constructor(store: Store<AppState>) {
+  constructor(private store: Store<AppState>) {
     this.user = store.select((s) => s.user);
   }
 
   public logout() {
-    //
+    this.store.dispatch(userActions.gainExp());
   }
 }

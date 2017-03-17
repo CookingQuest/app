@@ -15,16 +15,14 @@ function gainExp(payload: number = 1): Action {
 }
 
 function gainExpHandler(state: UserState, payload: number): UserState {
-  return iassign(
-    state, ({stats}) => stats,
-    (stats) => {
-      const exp = stats.exp + payload;
-      const levelUps: number = Math.floor(exp / 1000);
-      const restExp: number = exp % 1000;
-      stats.level += levelUps;
-      stats.exp = restExp;
-      return stats;
-    });
+  return iassign(state, (s) => s.stats, (stats) => {
+    const exp = stats.exp + payload;
+    const levelUps = Math.floor(exp / 1000);
+    const restExp = exp % 1000;
+    stats.level += levelUps;
+    stats.exp = restExp;
+    return stats;
+  });
 }
 
 export function user(state: UserState, action: Action): UserState {

@@ -1,19 +1,20 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import { AppState } from 'reducers';
-import { actions } from '.';
+import { AppState } from 'app/store';
+import { actions } from './tutorial.reducers';
 
 @Component({
   templateUrl: './tutorial.component.html',
   styleUrls: ['./tutorial.component.css']
 })
 export class TutorialComponent {
-  public email: string;
+  public email = new FormControl();
 
   constructor(private store: Store<AppState>) {}
 
   public register() {
-    this.store.dispatch(actions.register(this.email));
+    this.store.dispatch(actions.register(this.email.value));
   }
 }

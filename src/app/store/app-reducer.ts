@@ -1,5 +1,5 @@
-import { combineReducers } from '@ngrx/store';
 import { compose } from '@ngrx/core/compose';
+import { combineReducers } from '@ngrx/store';
 import { routerReducer as router, RouterState } from '@ngrx/router-store';
 
 import { stateSetter, setRootState } from './hmr';
@@ -25,10 +25,6 @@ const reducers = {
 
 const developmentReducer = compose(stateSetter, combineReducers)(reducers);
 const productionReducer = compose(combineReducers)(reducers);
-
-export function getAppState(): AppState {
-  return <AppState> initial_state;
-}
 
 export function rootReducer(state: any, action: any) {
   return ENV !== 'development' ?
