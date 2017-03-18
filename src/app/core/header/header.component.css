@@ -1,0 +1,11 @@
+:host {
+  lost-row: 1/6;
+  lost-center: 90%;
+  padding-top: 40px;
+  user {
+    lost-column: 1/2 1;
+    height: 80px;
+    display: block;
+    lost-center: 140px;
+  }
+}

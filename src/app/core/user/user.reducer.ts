@@ -25,7 +25,7 @@ function gainExpHandler(state: UserState, payload: number): UserState {
   });
 }
 
-export function user(state: UserState, action: Action): UserState {
+export function userReducer(state: UserState, action: Action): UserState {
   const handler = ACTION_HANDLERS[action.type];
   return handler ? handler(state, action.payload) : state;
 }

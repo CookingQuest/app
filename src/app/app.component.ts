@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { ApiService } from 'api';
+import { ApiService } from 'app/core';
 
 @Component({
   selector: 'app',

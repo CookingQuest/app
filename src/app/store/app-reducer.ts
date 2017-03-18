@@ -3,7 +3,7 @@ import { combineReducers } from '@ngrx/store';
 import { routerReducer as router, RouterState } from '@ngrx/router-store';
 
 import { stateSetter, setRootState } from './hmr';
-import { user, UserState } from 'app/user/reducers';
+import { userReducer, UserState } from 'app/core';
 import { reducer as tutorial } from 'app/tutorial';
 
 export const actions = { setRootState };
@@ -19,7 +19,7 @@ export type InternalStateType = {
 
 const reducers = {
   router,
-  user,
+  user: userReducer,
   tutorial
 };
 

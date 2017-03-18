@@ -1,10 +1,16 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 
-import { ApiService } from 'api';
+import { ApiService } from './api';
+
+import { SharedModule } from 'app/shared';
+
+import { HeaderComponent } from './header';
+import { UserComponent } from './user';
 
 @NgModule({
-  imports: [ ],
-  exports: [ ],
+  imports: [ SharedModule ],
+  declarations: [ HeaderComponent, UserComponent ],
+  exports: [ HeaderComponent ],
   providers: [ ApiService ]
 })
 export class CoreModule {

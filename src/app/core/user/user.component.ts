@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { AppState } from 'app/store';
-import { UserState, userActions } from './reducers';
+import { UserState, userActions } from './user.reducer';
 
 @Component({
   selector: 'user',

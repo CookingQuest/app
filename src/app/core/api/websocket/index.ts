@@ -12,14 +12,10 @@ export class Websocket {
     socket.connect();
 
     this.graphqlChannel = socket.channel('graphql', {});
-    this.graphqlChannel.join()
-      .receive('ok', (resp: any) => { console.log('Joined successfully', resp); })
-      .receive('error', (resp: any) => { console.log('Unable to join', resp); });
+    this.graphqlChannel.join();
 
     this.apiChannel = socket.channel('api', {});
-    this.apiChannel.join()
-      .receive('ok', (resp: any) => { console.log('Joined successfully', resp); })
-      .receive('error', (resp: any) => { console.log('Unable to join', resp); });
+    this.apiChannel.join();
   }
 
   public api(method: string, params: string[]) {
