@@ -85,13 +85,13 @@ module.exports = function (options) {
           test: /\.html$/,
           use: [{
             loader: 'html-loader',
-            options: !isProd ? {
+            options: Object.assign({root: helpers.root('src')}, isProd ? {
               minimize: true,
               removeAttributeQuotes: false,
               keepClosingSlash: true,
               caseSensitive: true,
               conservativeCollapse: true
-            } : {}}]
+            } : {})}]
         },
 
         {
@@ -104,7 +104,15 @@ module.exports = function (options) {
         },
 
         {
-          test: /\.(eot|woff2?|svg|ttf)([\?]?.*)$/,
+          test: /\.svg$/,
+          use: [{
+            loader: 'svg-url-loader',
+            options: {noquotes: true}
+          }]
+        },
+
+        {
+          test: /\.(eot|woff2?|ttf)$/,
           use: 'file-loader'
         }
 
