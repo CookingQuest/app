@@ -5,12 +5,13 @@ import { ApiService } from './api';
 import { SharedModule } from 'app/shared';
 
 import { HeaderComponent } from './header';
+import { FooterComponent } from './footer';
 import { UserComponent } from './user';
 
 @NgModule({
   imports: [ SharedModule ],
-  declarations: [ HeaderComponent, UserComponent ],
-  exports: [ HeaderComponent ],
+  declarations: [ HeaderComponent, FooterComponent, UserComponent ],
+  exports: [ HeaderComponent, FooterComponent],
   providers: [ ApiService ]
 })
 export class CoreModule {
