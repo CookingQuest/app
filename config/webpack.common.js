@@ -83,8 +83,15 @@ module.exports = function (options) {
 
         {
           test: /\.html$/,
-          use: 'raw-loader',
-          exclude: [helpers.root('src/index.html')]
+          use: [{
+            loader: 'html-loader',
+            options: !isProd ? {
+              minimize: true,
+              removeAttributeQuotes: false,
+              keepClosingSlash: true,
+              caseSensitive: true,
+              conservativeCollapse: true
+            } : {}}]
         },
 
         {
