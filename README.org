@@ -1,4 +1,4 @@
 * CookingQuest Angular2 App
-[[https://travis-ci.org/cookingquest/app][https://travis-ci.org/cookingquest/app.svg]]
+[[https://travis-ci.org/CookingQuest/app][https://travis-ci.org/CookingQuest/app.svg]]
 [[https://david-dm.org/cookingquest/app][https://david-dm.org/cookingquest/app.svg]]
 [[https://david-dm.org/cookingquest/app?type=dev][https://david-dm.org/cookingquest/app/dev-status.svg]]
