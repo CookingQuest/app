@@ -152,7 +152,7 @@ module.exports = function (options) {
       ),
 
       new CopyWebpackPlugin([
-        { from: 'src/assets/icon', to: 'icon' },
+        { from: 'src/assets/favicon', to: 'assets/favicon' },
         { from: 'src/meta'}
       ]),
 
