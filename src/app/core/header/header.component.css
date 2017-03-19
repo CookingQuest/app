@@ -1,0 +1,9 @@
+:host {
+  lost-center: 90%;
+  user {
+    margin: 40px;
+    lost-column: 1/2 1;
+    display: block;
+    lost-center: 140px;
+  }
+}

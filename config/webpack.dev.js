@@ -56,7 +56,7 @@ module.exports = function (options) {
 
         {
           test: /\.css$/,
-          use: ['to-string-loader',
+          use: ['style-loader',
                 {loader: 'css-loader', query: { importLoaders: 1 }},
                 'postcss-loader'],
           include: [helpers.root('src', 'styles')]

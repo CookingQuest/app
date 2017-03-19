@@ -10,7 +10,6 @@ import { HomeComponent } from './home';
 import { SharedModule } from './shared';
 import { AppStoreModule, AppState, actions, InternalStateType } from './store';
 import { TutorialComponent } from './tutorial';
-import { UserComponent } from './user';
 
 import { AppComponent } from './app.component';
 
@@ -25,8 +24,7 @@ type StoreType = {
   declarations: [
     AppComponent,
     HomeComponent,
-    TutorialComponent,
-    UserComponent
+    TutorialComponent
   ],
   imports: [
     BrowserModule,

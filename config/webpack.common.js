@@ -83,8 +83,15 @@ module.exports = function (options) {
 
         {
           test: /\.html$/,
-          use: 'raw-loader',
-          exclude: [helpers.root('src/index.html')]
+          use: [{
+            loader: 'html-loader',
+            options: Object.assign({root: helpers.root('src')}, isProd ? {
+              minimize: true,
+              removeAttributeQuotes: false,
+              keepClosingSlash: true,
+              caseSensitive: true,
+              conservativeCollapse: true
+            } : {})}]
         },
 
         {
@@ -97,7 +104,15 @@ module.exports = function (options) {
         },
 
         {
-          test: /\.(eot|woff2?|svg|ttf)([\?]?.*)$/,
+          test: /\.svg$/,
+          use: [{
+            loader: 'svg-url-loader',
+            options: {noquotes: true}
+          }]
+        },
+
+        {
+          test: /\.(eot|woff2?|ttf)$/,
           use: 'file-loader'
         }
 
@@ -137,7 +152,7 @@ module.exports = function (options) {
       ),
 
       new CopyWebpackPlugin([
-        { from: 'src/assets/icon', to: 'icon' },
+        { from: 'src/assets/favicon', to: 'assets/favicon' },
         { from: 'src/meta'}
       ]),
 

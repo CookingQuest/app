@@ -8,11 +8,11 @@ import { AuthEffects } from 'app/tutorial/tutorial.reducers';
 import { rootReducer, AppState } from './app-reducer';
 
 @NgModule({
-  imports:      [
-    StoreModule.provideStore(rootReducer, initial_state),
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+  imports: [
+    StoreModule.provideStore(rootReducer),
     RouterStoreModule.connectRouter(),
-    EffectsModule.run(AuthEffects)
+    EffectsModule.run(AuthEffects),
+      ...(ENV === 'development' ? [StoreDevtoolsModule.instrumentOnlyWithExtension()] : [])
   ],
   declarations: [ ],
   exports: [ ]

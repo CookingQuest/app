@@ -14,9 +14,9 @@ function gainExp(payload: number = 1): Action {
   return { type: GAIN_EXP, payload };
 }
 
-function gainExpHandler(state: UserState, payload: number): UserState {
+function gainExpHandler(state: UserState, gainedExp: number): UserState {
   return iassign(state, (s) => s.stats, (stats) => {
-    const exp = stats.exp + payload;
+    const exp = stats.exp + gainedExp;
     const levelUps = Math.floor(exp / 1000);
     const restExp = exp % 1000;
     stats.level += levelUps;
@@ -25,16 +25,15 @@ function gainExpHandler(state: UserState, payload: number): UserState {
   });
 }
 
-export function user(state: UserState, action: Action): UserState {
+export function userReducer(state: UserState, action: Action): UserState {
   const handler = ACTION_HANDLERS[action.type];
   return handler ? handler(state, action.payload) : state;
 }
 
 export interface UserState {
-  stats: Stats;
-}
-
-interface Stats {
-  level: number;
-  exp: number;
+  name: string;
+  stats: {
+    level: number;
+    exp: number;
+  };
 }

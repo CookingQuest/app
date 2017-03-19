@@ -1,0 +1,24 @@
+:host {
+  lost-align: right;
+}
+
+.icon {
+  transition: all .2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255, 0.5);
+  border-radius: 64px;
+  height: 50px;
+  width: 50px;
+  &:hover {
+    border: 1px solid rgba(255,255,255, 1);
+    transform: scale(1.05);
+  }
+}
+
+img.github {
+  width: 36px;
+  height: 36px;
+}

@@ -3,7 +3,7 @@ import { Actions, Effect, toPayload } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { ApiService } from 'api';
+import { ApiService } from 'app/core';
 
 const REGISTER = 'REGISTER';
 

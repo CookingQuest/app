@@ -48,23 +48,23 @@ function createTag(tagName, attrMap, publicPath) {
   }
 
   const attributes = Object.getOwnPropertyNames(attrMap)
-    .filter(function(name) { return name[0] !== '='; } )
-    .map(function(name) {
-      var value = attrMap[name];
+        .filter(function(name) { return name[0] !== '='; } )
+        .map(function(name) {
+          var value = attrMap[name];
 
-      if (publicPath) {
-        // check if we have explicit instruction, use it if so (e.g: =herf: false)
-        // if no instruction, use public path if it's href attribute.
-        const usePublicPath = attrMap.hasOwnProperty('=' + name) ? !!attrMap['=' + name] : name === 'href';
+          if (publicPath) {
+            // check if we have explicit instruction, use it if so (e.g: =herf: false)
+            // if no instruction, use public path if it's href attribute.
+            const usePublicPath = attrMap.hasOwnProperty('=' + name) ? !!attrMap['=' + name] : name === 'href';
 
-        if (usePublicPath) {
-          // remove a starting trailing slash if the value has one so we wont have //
-          value = publicPath + (value[0] === '/' ? value.substr(1) : value);
-        }
-      }
+            if (usePublicPath) {
+              // remove a starting trailing slash if the value has one so we wont have //
+              value = publicPath + (value[0] === '/' ? value.substr(1) : value);
+            }
+          }
 
-      return `${name}="${value}"`;
-    });
+          return `${name}="${value}"`;
+        });
 
   const closingTag = tagName === 'script' ? '</script>' : '';
 
@@ -78,7 +78,7 @@ function createTag(tagName, attrMap, publicPath) {
  *
  *    const ds = {
  *      link: [
- *        { rel: "apple-touch-icon", sizes: "57x57", href: "/assets/icon/apple-icon-57x57.png" }
+ *        { rel: "apple-touch-icon", sizes: "57x57", href: "/assets/favicon/apple-icon-57x57.png" }
  *      ],
  *      meta: [
  *        { name: "msapplication-TileColor", content: "#00bcd4" }
@@ -86,7 +86,7 @@ function createTag(tagName, attrMap, publicPath) {
  *    }
  *
  * getHeadTags(ds);
- * // "<link rel="apple-touch-icon" sizes="57x57" href="/assets/icon/apple-icon-57x57.png">"
+ * // "<link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png">"
  *    "<meta name="msapplication-TileColor" content="#00bcd4">"
  *
  * @returns {string}

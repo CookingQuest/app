@@ -3,24 +3,20 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { AppState } from 'app/store';
-import { UserState, userActions } from './reducers';
+import { UserState } from 'app/core/user';
 
 @Component({
-  selector: 'user',
+  selector: 'header',
   styleUrls: [
-    './user.component.css'
+    './header.component.css'
   ],
-  templateUrl: './user.component.html'
+  templateUrl: './header.component.html'
 })
-export class UserComponent {
+export class HeaderComponent {
 
   public user: Observable<UserState>;
 
-  constructor(private store: Store<AppState>) {
+  constructor(store: Store<AppState>) {
     this.user = store.select((s) => s.user);
-  }
-
-  public logout() {
-    this.store.dispatch(userActions.gainExp());
   }
 }

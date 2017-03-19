@@ -1,10 +1,17 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 
-import { ApiService } from 'api';
+import 'styles/styles.css';
+
+import { SharedModule } from 'app/shared';
+import { ApiService } from './api';
+import { HeaderComponent } from './header';
+import { FooterComponent } from './footer';
+import { UserComponent } from './user';
 
 @NgModule({
-  imports: [ ],
-  exports: [ ],
+  imports: [ SharedModule ],
+  declarations: [ HeaderComponent, FooterComponent, UserComponent ],
+  exports: [ HeaderComponent, FooterComponent],
   providers: [ ApiService ]
 })
 export class CoreModule {
