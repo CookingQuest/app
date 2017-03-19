@@ -5,8 +5,7 @@ import { ApiService } from 'app/core';
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
-    './app.component.css',
-    './vendor.css'
+    './app.component.css'
   ],
   templateUrl: './app.component.html'
 })
