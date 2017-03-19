@@ -1,14 +1,12 @@
-import { Socket } from './phoenix';
+import { Socket, Channel } from './phoenix';
 
 export class Websocket {
-  private graphqlChannel: any;
-  private apiChannel: any;
+  private graphqlChannel: Channel;
+  private apiChannel: Channel;
+  private stateChannel: Channel;
 
   constructor() {
-    let socket = new Socket('/socket', {params: {}});
-    if (ENV === 'development') {
-      socket.onError(() => socket.disconnect());
-    }
+    const socket = new Socket('/socket', {params: {}});
     socket.connect();
 
     this.graphqlChannel = socket.channel('graphql', {});
@@ -16,11 +14,14 @@ export class Websocket {
 
     this.apiChannel = socket.channel('api', {});
     this.apiChannel.join();
+
+    this.stateChannel = socket.channel('state', {});
+    this.stateChannel.join();
   }
 
-  public api(method: string, params: string[]) {
+  public api(method: string, params: object) {
     return new Promise(
-      (resolve) => this.apiChannel.push('call', {method, params}, 5000)
+      (resolve) => this.apiChannel.push(method, params, 5000)
         .receive('ok', ({data}: Response) => resolve(data))
     );
   }
