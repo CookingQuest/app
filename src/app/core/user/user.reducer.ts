@@ -31,7 +31,6 @@ export function userReducer(state: UserState, action: Action): UserState {
 }
 
 export interface UserState {
-  name: string,
   stats: {
     level: number;
     exp: number;
