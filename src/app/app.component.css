@@ -1,21 +1,5 @@
 @lost flexbox flex;
 
-.bg-img {
-  position: fixed;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  min-height: 100%;
-  z-index: -1;
-  transform: scale(1.1);
-  filter: blur(15px);
-  transition: .4s ease all;
-}
-
-html, body, app {
-  height: 100%;
-}
-
 app {
   display: block;
   lost-center: 98%

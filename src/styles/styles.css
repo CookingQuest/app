@@ -1,3 +1,20 @@
 /* this file will be extracted to main dist folder and is imported in index.html */
 /* This file is for setting global styles  */
 /* reason: https://github.com/AngularClass/angular2-webpack-starter/pull/1304 */
+@import './vendor.css';
+
+.bg-img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  transform: scale(1.1);
+  filter: blur(15px);
+  opacity: 1!important;
+}
+
+html, body, app {
+  height: 100%;
+}

@@ -1,6 +1,6 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 
-import 'styles/vendor.css';
+import 'styles/styles.css';
 
 import { SharedModule } from 'app/shared';
 import { ApiService } from './api';
