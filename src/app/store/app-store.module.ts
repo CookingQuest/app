@@ -9,7 +9,7 @@ import { rootReducer, AppState } from './app-reducer';
 
 @NgModule({
   imports: [
-    StoreModule.provideStore(rootReducer, initial_state),
+    StoreModule.provideStore(rootReducer),
     RouterStoreModule.connectRouter(),
     EffectsModule.run(AuthEffects),
       ...(ENV === 'development' ? [StoreDevtoolsModule.instrumentOnlyWithExtension()] : [])

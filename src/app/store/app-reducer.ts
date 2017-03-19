@@ -26,7 +26,7 @@ const reducers = {
 const developmentReducer = compose(stateSetter, combineReducers)(reducers);
 const productionReducer = compose(combineReducers)(reducers);
 
-export function rootReducer(state: any, action: any) {
+export function rootReducer(state: AppState = initial_state, action: any) {
   return ENV !== 'development' ?
     productionReducer(state, action) : developmentReducer(state, action);
 }
