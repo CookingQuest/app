@@ -18,18 +18,18 @@ html, body, app {
 
 app {
   display: block;
-  lost-flex-container: row;
+  lost-center: 98%
 }
 
 header {
-  lost-row: 3/12;
+  lost-row: 4/20;
 }
 
 router-outlet + * {
-  lost-row: 8/12;
+  lost-row: 14/20;
   display: block;
 }
 
 footer {
-  lost-row: 1/12;
+  lost-row: 2/20;
 }

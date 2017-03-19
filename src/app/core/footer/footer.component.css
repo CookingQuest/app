@@ -1,6 +1,12 @@
+:host {
+  lost-align: right;
+}
+
 .icon {
   transition: all .2s ease-in-out;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   border: 1px solid rgba(255,255,255, 0.5);
   border-radius: 64px;
@@ -12,9 +18,7 @@
   }
 }
 
-img.twitter {
-  margin-top: 14px;
-  width: 24px;
-  height: 24px;
-  transform: translateX(12px);
+img.github {
+  width: 36px;
+  height: 36px;
 }
