@@ -1,4 +1,4 @@
-import { Socket, Channel } from './phoenix';
+import { Socket, Channel } from 'vendor/phoenix';
 
 export class Websocket {
   private graphqlChannel: Channel;
