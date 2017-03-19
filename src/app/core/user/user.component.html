@@ -1,9 +1,9 @@
 <div>
-  <span>{{(user | async).name}}</span>
-  <span>Lv{{(user | async).stats.level}}</span>
+  <span>{{user.name}}</span>
+  <span>Lv{{user.stats.level}}</span>
 </div>
 <div>
-  <span>Experience: {{(user | async).stats.exp}}</span>
+  <span>Experience: {{user.stats.exp}}</span>
 </div>
 <div>
   <rect-btn (onClick)="logout()"></rect-btn>
