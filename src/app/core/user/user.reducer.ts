@@ -1,4 +1,4 @@
-import iassign from 'immutable-assign';
+import { set } from 'monolite';
 import { Action } from '@ngrx/store';
 
 export const userActions = {
@@ -15,7 +15,7 @@ function gainExp(payload: number = 1): Action {
 }
 
 function gainExpHandler(state: UserState, gainedExp: number): UserState {
-  return iassign(state, (s) => s.stats, (stats) => {
+  return set(state, (s) => s.stats)((stats) => {
     const exp = stats.exp + gainedExp;
     const levelUps = Math.floor(exp / 1000);
     const restExp = exp % 1000;
