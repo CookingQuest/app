@@ -4,7 +4,7 @@ import { routerReducer as router, RouterState } from '@ngrx/router-store';
 
 import { stateSetter, setRootState } from './hmr';
 import { userReducer, UserState } from 'app/core';
-import { reducer as tutorial } from 'app/tutorial';
+import { loginReducer } from 'app/login';
 
 export const actions = { setRootState };
 
@@ -13,14 +13,10 @@ export interface AppState {
   router: RouterState;
 }
 
-export type InternalStateType = {
-  [key: string]: any
-};
-
 const reducers = {
   router,
   user: userReducer,
-  tutorial
+  login: loginReducer
 };
 
 const developmentReducer = compose(stateSetter, combineReducers)(reducers);
