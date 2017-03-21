@@ -1,2 +1,2 @@
 export { UserComponent } from './user.component';
-export { UserState, userReducer } from './user.reducer';
+export { UserState, userHandlers } from './user.reducer';

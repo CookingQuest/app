@@ -1,17 +1,13 @@
 import { NgModule } from '@angular/core';
-import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RouterStoreModule } from '@ngrx/router-store';
-
-import { AuthEffects } from 'app/login/login.reducer';
 import { rootReducer, AppState } from './app.reducer';
 
 @NgModule({
   imports: [
     StoreModule.provideStore(rootReducer),
     RouterStoreModule.connectRouter(),
-    EffectsModule.run(AuthEffects),
     ...(ENV === 'development' ? [StoreDevtoolsModule.instrumentOnlyWithExtension()] : [])
   ],
   declarations: [],

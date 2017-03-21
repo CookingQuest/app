@@ -1,3 +1,3 @@
 export { ApiService } from './api';
 export { CoreModule } from './core.module';
-export { UserState, userReducer } from './user';
+export { UserState, userHandlers } from './user';
