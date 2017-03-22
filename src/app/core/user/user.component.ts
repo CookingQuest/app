@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { AppState } from 'app/store';
-import { userActions, UserState } from './user.reducer';
+import { actions, UserState } from './user.reducer';
 
 @Component({
   selector: 'user',
@@ -16,9 +16,9 @@ export class UserComponent {
 
   @Input() public user: UserState;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) { }
 
   public logout() {
-    this.store.dispatch(userActions.gainExp());
+    this.store.dispatch(actions.gainExp());
   }
 }

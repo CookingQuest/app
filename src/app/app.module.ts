@@ -3,42 +3,30 @@ import { BrowserModule } from '@angular/platform-browser';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { Store } from '@ngrx/store';
 
-import { AppRoutingModule }   from './app-routing.module';
+import { RoutingModule } from './routing';
 import { CoreModule } from './core';
 import { ENV_PROVIDERS } from './environment';
-import { HomeComponent } from './home';
-import { SharedModule } from './shared';
-import { AppStoreModule, AppState, actions, InternalStateType } from './store';
-import { TutorialComponent } from './tutorial';
+import { HomeModule } from './home';
+import { AppStoreModule, AppState, actions } from './store';
 
 import { AppComponent } from './app.component';
 
-type StoreType = {
-  state: InternalStateType,
-  restoreInputValues: () => void,
-  disposeOldHosts: () => void
-};
-
 @NgModule({
   bootstrap: [AppComponent],
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    TutorialComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    SharedModule,
     CoreModule,
-    AppRoutingModule,
-    AppStoreModule
+    RoutingModule,
+    AppStoreModule,
+    HomeModule
   ],
   providers: [
     ENV_PROVIDERS
   ]
 })
 export class AppModule {
-  constructor(public appRef: ApplicationRef, private _store: Store<AppState>) {}
+  constructor(public appRef: ApplicationRef, private _store: Store<AppState>) { }
 
   public hmrOnInit(store: StoreType) {
     if (!store || !store.state) {
@@ -69,3 +57,9 @@ export class AppModule {
   }
 
 }
+
+type StoreType = {
+  state: AppState,
+  restoreInputValues: () => void,
+  disposeOldHosts: () => void
+};

@@ -9,9 +9,9 @@ header {
   lost-row: 4/20;
 }
 
-router-outlet + * {
+route {
+  lost-align: top-center;
   lost-row: 14/20;
-  display: block;
 }
 
 footer {

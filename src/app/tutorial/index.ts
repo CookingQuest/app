@@ -1,2 +1,1 @@
-export * from './tutorial.component';
-export * from './tutorial.reducers';
+export { TutorialModule } from './tutorial.module';
