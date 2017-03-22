@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { Store } from '@ngrx/store';
 
-import { AppRoutingModule } from './app-routing.module';
+import { RoutingModule } from './routing';
 import { CoreModule } from './core';
 import { ENV_PROVIDERS } from './environment';
 import { HomeModule } from './home';
@@ -17,7 +17,7 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     CoreModule,
-    AppRoutingModule,
+    RoutingModule,
     AppStoreModule,
     HomeModule
   ],
