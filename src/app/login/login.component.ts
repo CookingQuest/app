@@ -15,7 +15,7 @@ export class LoginComponent {
 
   constructor(private store: Store<AppState>) { }
 
-  public register() {
-    this.store.dispatch(actions.register(this.email.value));
+  public login() {
+    this.store.dispatch(actions.login(this.email.value));
   }
 }
