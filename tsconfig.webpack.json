@@ -14,7 +14,7 @@
     "removeComments": true,
     "strictNullChecks": false,
     "noUnusedLocals": true,
-    "baseUrl": "./src",
+    "baseUrl": "src",
     "lib": [
       "es2017",
       "dom"
