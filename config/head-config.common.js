@@ -35,7 +35,7 @@ module.exports = {
     { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/assets/favicon/favicon-16x16.png' },
 
     /** <link> tags for a Web App Manifest **/
-    { rel: 'manifest', href: '/meta/manifest.json' }
+    { rel: 'manifest', href: '/assets/favicon/manifest.json' }
   ],
   meta: [
     { name: 'msapplication-TileColor', content: '#00bcd4' },
