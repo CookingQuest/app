@@ -8,7 +8,7 @@ import { rootReducer, AppState } from './app.reducer';
   imports: [
     StoreModule.provideStore(rootReducer),
     RouterStoreModule.connectRouter(),
-    ...(ENV === 'development' ? [StoreDevtoolsModule.instrumentOnlyWithExtension()] : [])
+    ...(ENV === 'development' ? [StoreDevtoolsModule.instrumentStore()] : [])
   ],
   declarations: [],
   exports: []

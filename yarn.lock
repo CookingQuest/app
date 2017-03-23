@@ -87,9 +87,9 @@
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-1.2.5.tgz#1cff82c5488fab995872c6f0d57a29a7ac91e598"
 
-"@ngrx/store-devtools@git://github.com/robertohuertasm/store-devtools.git#fix-ng4rc5":
+"@ngrx/store-devtools@3.2.3":
   version "3.2.3"
-  resolved "git://github.com/robertohuertasm/store-devtools.git#1f0b58020b4e635ab7f93fc231a0a7628f092e1c"
+  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-3.2.3.tgz#3e89ac95ba7e96ebb20180a61d731954078728fb"
 
 "@ngrx/store@^2.2.1":
   version "2.2.1"
