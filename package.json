@@ -87,8 +87,8 @@
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
-    "@ngrx/store-devtools": "3.2.3",
     "@angular/compiler-cli": "4.0.0",
+    "@ngrx/store-devtools": "^3.2.4",
     "@types/hammerjs": "^2.0.33",
     "@types/jasmine": "^2.2.34",
     "@types/node": "^7.0.0",
