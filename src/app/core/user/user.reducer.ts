@@ -3,21 +3,19 @@ import { Action } from '@ngrx/store';
 
 import { ActionHandlers } from 'app/store';
 
+export const types = {
+  gainExp: 'GAIN_EXP'
+};
+
+const gainExp = (payload: number = 1): Action => ({ type: types.gainExp, payload });
+
 export const actions = {
   gainExp
 };
 
-export const types = {
-  gain_exp: 'GAIN_EXP'
-};
-
 export const userHandlers: ActionHandlers<UserState> = {
-  [types.gain_exp]: gainExpHandler
+  [types.gainExp]: gainExpHandler
 };
-
-function gainExp(payload: number = 1): Action {
-  return { type: types.gain_exp, payload };
-}
 
 function gainExpHandler(state: UserState, gainedExp: number): UserState {
   return set(state, (s) => s.stats)((stats) => {
