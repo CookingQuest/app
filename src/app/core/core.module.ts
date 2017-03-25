@@ -6,11 +6,14 @@ import { SharedModule } from 'app/shared';
 import { ApiService } from './api';
 import { HeaderComponent } from './header';
 import { FooterComponent } from './footer';
-import { UserComponent } from './user';
+import { UserComponent, UserInfoComponent, UserDetailComponent } from './user';
 
 @NgModule({
   imports: [SharedModule],
-  declarations: [HeaderComponent, FooterComponent, UserComponent],
+  declarations: [
+    HeaderComponent, FooterComponent, UserComponent, UserInfoComponent,
+    UserDetailComponent
+  ],
   exports: [HeaderComponent, FooterComponent],
   providers: [ApiService]
 })

@@ -1,10 +1,2 @@
-<div>
-  <span>{{user.name}}</span>
-  <span>Lv{{user.stats.level}}</span>
-</div>
-<div>
-  <span>Experience: {{user.stats.exp}}</span>
-</div>
-<div>
-  <rect-btn (onClick)="logout()"></rect-btn>
-</div>
+<user-info [user]="user | async"></user-info>
+<user-detail [user]="user | async" (onLogout)="logout()"></user-detail>
