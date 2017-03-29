@@ -22,5 +22,5 @@ export class AppStoreModule {
 function navToRouteFromState(state: AppState) {
   if (state.router) {
     history.replaceState({}, null, state.router.path);
-  }^
+  }
 }

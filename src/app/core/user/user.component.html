@@ -1,2 +1,10 @@
-<user-info [user]="user | async"></user-info>
-<user-detail [user]="user | async" (onLogout)="logout()"></user-detail>
+<user-info *ngIf="!expanded"
+  [user]="user | async">
+</user-info>
+<user-detail *ngIf="expanded"
+  [user]="user | async" (onLogout)="logout()">
+</user-detail>
+<div (click)="toggle()" class="toggle">
+  <img *ngIf="expanded" src="/assets/icon/arrow-compress.svg">
+  <img *ngIf="!expanded" src="/assets/icon/arrow-expand.svg">
+</div>

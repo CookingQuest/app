@@ -9,6 +9,5 @@ import { UserState } from '../user.reducer';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserInfoComponent {
-
   @Input() public user: UserState;
 }

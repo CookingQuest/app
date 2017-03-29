@@ -12,6 +12,7 @@ import { actions, UserState } from './user.reducer';
 })
 export class UserComponent {
 
+  public expanded: boolean = false;
   public user: Observable<UserState>;
 
   constructor(private store: Store<AppState>) {
@@ -20,5 +21,9 @@ export class UserComponent {
 
   public logout() {
     this.store.dispatch(actions.gainExp());
+  }
+
+  public toggle() {
+    this.expanded = !this.expanded;
   }
 }

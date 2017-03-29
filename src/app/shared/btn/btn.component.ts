@@ -1,13 +1,13 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'rect-btn',
+  selector: 'btn',
   styleUrls: [
-    './rect-btn.component.css'
+    './btn.component.css'
   ],
-  templateUrl: './rect-btn.component.html'
+  templateUrl: './btn.component.html'
 })
-export class RectBtnComponent {
+export class BtnComponent {
   @Output() private onClick = new EventEmitter();
 
   public click() {
