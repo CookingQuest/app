@@ -3,25 +3,30 @@ dist: trusty
 addons:
   apt:
     sources:
-      - google-chrome
+    - google-chrome
     packages:
-      - google-chrome-stable
+    - google-chrome-stable
 language: node_js
 node_js:
-  - "node"
+- node
 matrix:
   fast_finish: true
-before_install:
-  - npm i npm@^4 -g
 install:
-  - yarn
+- yarn
 before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sleep 3
 script:
-  - npm run ci:travis
+- npm run ci:travis
 cache:
   yarn: true
   directories:
-    - node_modules
+  - node_modules
+deploy:
+  provider: releases
+  api_key:
+    secure: WFw4Kvz6qR57+nowQt4IApn0coMAKsNHoCiePSKTUzBtJaGowaOA9jB+TP9PzTIagSzdXvY9PKukOjXqBW+Ex6vQROzVcDEBmcNlDXFMmAkLXYq+kvDeFDEsXp+CF5Mej93NO9m27HMmTL+LDc3eM5l5aHaTEra8nRTRYoMQV/ZAmVQ+CeIM+vUXatrqDojoaf/KNnWFpYNuo/I5vWBmg3bVT9f9LxUUaY9MiJ5csNN5mLWxj0gZMKP8sKM3WH2Z2bDA0xeGG4BkFnBGyNY2iHasTSXSQn239pfFG/ut8PvTF/5FajqmGSrbOThMybDSYs+gpYtpkU9+e9qQCNz7c2T+s67j+uQOdMXsw2zBjxNjJCygN/lc1fO+sIBji0WjuQRXGrStN90B48IuhVR8Sq7Mx52uD5viuczWITY4PSBPPaOrUeKjHPU0E1OOWSprldy/eK4nIlqV2J54KcQYuqdF4vJprc+TPBpn7p8oy0suE7atxqGlaom2mJUxVYJi4qOFRDesAro/RYYxueKThvLa0zeX6JwRSb3x1NpLB268Ce7hlspYXw/SQc6NR6OpAbU41vs5Rs/ASBeoephcqQcvgTUGK6mBzjaGIg0zIBxnuJwIBaf1ntUmkj7G763jTlF+z6x373z9WvIsrhJ65ZjpSscL4WumqThormkAxnE=
+  file: dist/
+  on:
+    repo: CookingQuest/app
