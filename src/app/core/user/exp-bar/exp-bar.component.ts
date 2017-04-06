@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, Input, OnChanges } from '@angular/core';
 
 @Component({
-  selector: 'user',
+  selector: 'exp-bar',
   templateUrl: './exp-bar.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

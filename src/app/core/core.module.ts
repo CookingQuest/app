@@ -6,12 +6,12 @@ import { SharedModule } from 'app/shared';
 import { ApiService } from './api';
 import { HeaderComponent } from './header';
 import { FooterComponent } from './footer';
-import { UserComponent, UserInfoComponent, UserDetailComponent } from './user';
+import { UserComponent, UserInfoComponent, UserDetailComponent, ExpBarComponent } from './user';
 
 @NgModule({
   imports: [SharedModule],
   declarations: [
-    HeaderComponent, FooterComponent, UserComponent, UserInfoComponent,
+    HeaderComponent, FooterComponent, UserComponent, ExpBarComponent, UserInfoComponent,
     UserDetailComponent
   ],
   exports: [HeaderComponent, FooterComponent],
