@@ -160,7 +160,7 @@ module.exports = function (options) {
         template: 'src/index.marko',
         minify: isProd ? {collapseWhitespace: true} : false,
         alwaysWriteToDisk: true,
-        filename: 'dist/templates/index.marko',
+        filename: 'templates/index.marko',
         chunksSortMode: 'dependency',
         metadata: METADATA,
         baseUrl: '/',
