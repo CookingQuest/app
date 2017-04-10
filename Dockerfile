@@ -6,4 +6,4 @@ RUN unzip repo.zip
 WORKDIR /repo/app-master  
 RUN yarn && yarn run build
 RUN mv dist /dist && rm -rf /repo
-CMD ["cp", "-a", "/dist/.", "/app/"]  
+CMD ["mv", "/dist", "/app"]
