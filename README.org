@@ -1,4 +1,7 @@
 * CookingQuest Angular2 App
+
+  #+ATTR_HTML: title="Greenkeeper badge"
+  [[https://greenkeeper.io/][file:https://badges.greenkeeper.io/CookingQuest/app.svg]]
 [[https://travis-ci.org/CookingQuest/app][https://travis-ci.org/CookingQuest/app.svg]]
 [[https://david-dm.org/cookingquest/app][https://david-dm.org/cookingquest/app.svg]]
 [[https://david-dm.org/cookingquest/app?type=dev][https://david-dm.org/cookingquest/app/dev-status.svg]]
